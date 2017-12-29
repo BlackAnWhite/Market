@@ -3,6 +3,7 @@
     <navIndex></navIndex>
     <banner></banner>
     <rollNotice></rollNotice>
+    <grides></grides>
   </div>
 </template>
 

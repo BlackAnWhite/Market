@@ -22,7 +22,9 @@ vue.component("banner", banner);
 //注册公告组件
 import rollNotice from "@/components/rollNotice";
 vue.component("rollNotice", rollNotice);
-
+//注册宫格组件
+import grides from "@/components/grides";
+vue.component("grides", grides);
 
 export default {
   name: 'app'
@@ -34,6 +36,8 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #f4f8fe;
+  min-height: 100%;
   font-size: 0.28rem;
   color: #666;
   width: 100%;

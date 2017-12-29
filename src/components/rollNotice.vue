@@ -36,7 +36,7 @@ export default {
 .rollNotice {
   height: .8rem;
   overflow: hidden;
-  background: #efefef;
+  background: #f4f8fe;
   padding: 0 .2rem;
   padding-left: .8rem;
   background-image: url('../assets/notice.png');

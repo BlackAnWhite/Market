@@ -1,7 +1,7 @@
 {
-  "name": "myvue",
+  "name": "Market",
   "version": "1.0.0",
-  "description": "first vue",
+  "description": "webpack + vue2 + ydui",
   "author": "BlackAnWhite <284549569@qq.com>",
   "private": true,
   "scripts": {
