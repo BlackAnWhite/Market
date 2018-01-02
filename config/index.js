@@ -10,17 +10,24 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      // 凡是 `/api` 开头的 http 请求，都会被代理到 localhost:8088 上，由 koa 提供 mock 数据。
+      // koa 代码在 ./mock 目录中，启动命令为 npm run mock
+      '/api': {
+        target: 'http://localhost:8088',
+        secure: false
+      }
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
-    autoOpenBrowser: false,
+    autoOpenBrowser: true,
     errorOverlay: true,
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
 
-    
+
     /**
      * Source Maps
      */

@@ -1,0 +1,40 @@
+{
+  "banners":[
+    {
+    "href": "https://www.baidu.com",
+    "src": "require('../assets/banner.png')"
+    },
+    {
+    "href": "https://www.baidu.com",
+    "src": "require('../assets/banner.png')"
+    }
+  ],
+  "navIndex":[
+    {
+      "headPic":" require('../assets/headPic.jpg')",
+      "keyWords": "iphone X"
+    }
+  ],
+  "grides": [
+    {
+      "name": "积分兑换",
+      "icon": "require('../assets/icon-grides1.png')",
+      "link": "/goodsClass"
+    },
+    {
+      "name": "积分兑换",
+      "icon": "require('../assets/icon-grides2.png')",
+      "link": "#"
+    },
+    {
+      "name": "积分兑换",
+      "icon": "require('../assets/icon-grides3.png')",
+      "link": "#"
+    },
+    {
+      "name": "积分兑换",
+      "icon": "require('../assets/icon-grides4.png')",
+      "link": "#"
+    }
+  ]
+}

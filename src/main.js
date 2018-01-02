@@ -3,10 +3,14 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import VueResource from 'vue-resource'
 import YDUI from 'vue-ydui'
 import 'vue-ydui/dist/ydui.rem.css'
 
 Vue.use(YDUI);
+Vue.use(VueResource);
+
+const HOST = 'http://192.168.1.143:520/';
 
 /**
  * YDUI 可伸缩布局方案

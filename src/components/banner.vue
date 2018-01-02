@@ -25,6 +25,9 @@ export default {
         }
       ]
     }
+  },
+  create: function(){
+    
   }
 }
 </script>

@@ -16,23 +16,37 @@
 </template>
 
 <script>
+import config from '@/config.js';
 export default {
   name: 'navIndex',
-  data () {
+  data() {
     return {
-      headPic: require("../assets/headPic.jpg"),
-      keyWords: 'iphone X'
+      headPic: '',
+      keyWords: ''
     }
+  },
+  created: function() {
+    // `this` 指向 vm 实例
+    let self = this;
+    this.$http.get('api/navIndex?id=666').then( data => {
+      let res = data.body.data;
+        console.log(data);
+        console.log(config.host);
+      // console.log(require(`${}`));
+      self.headPic = config.host + res['headPic'];
+      self.keyWords = res['keyWords'];
+    })
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.head a{
+.head a {
   display: black !important;
 }
-.headPic{
+
+.headPic {
   display: block;
   width: .64rem;
   height: .64rem;
@@ -40,9 +54,10 @@ export default {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  margin-left: 0.1rem;
+  margin-left: .1rem;
   /* background-image: "../assets/xiaobian.jpg"; */
 }
+
 .search-box {
   width: 5rem;
   height: .54rem;
@@ -54,19 +69,22 @@ export default {
   border: 1px solid #fff;
   color: #ecc7c3;
   font-size: 0.24rem;
-  background-image: url("../assets/search.png") ;
+  background-image: url("../assets/search.png");
   background-size: 0.4rem;
   background-repeat: no-repeat;
-  background-position:  0.1rem center;
+  background-position: 0.1rem center;
 }
+
 .search-btn {
   color: #fff;
   font-size: 0.28rem;
   padding-right: 0.15rem;
 }
+
 .navbar-bottom-line-color:after {
   border-color: #e8380d !important;
 }
+
 .yd-navbar-center-box:after {
   width: 80% !important;
 }
