@@ -34,6 +34,12 @@ vue.component("special", special);
 
 
 
+import 'swiper/dist/css/swiper.css';
+import { swiper, swiperSlide } from 'vue-awesome-swiper';
+vue.component('swiper',swiper);
+vue.component('swiper-slide',swiperSlide);
+
+
 
 
 
