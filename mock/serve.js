@@ -40,9 +40,99 @@ router.get('/api/special', function(ctx, next) {
   ctx.body = {
     data: [
       {
-        "img": "headPic.jpg",
-        "info":[
-
+        id:1,
+        img: "headPic.jpg",
+        info:[
+          {
+            id:'1',
+            img:'',
+            title:'',
+            desc:'',
+            price:['rmb','b']
+          },
+          {
+            id:'2',
+            img:'',
+            title:'',
+            desc:'',
+            price:['rmb','b']
+          },
+          {
+            id:'3',
+            img:'',
+            title:'',
+            desc:'',
+            price:['rmb','b']
+          },
+          {
+            id:'4',
+            img:'',
+            title:'',
+            desc:'',
+            price:['rmb','b']
+          },
+          {
+            id:'5',
+            img:'',
+            title:'',
+            desc:'',
+            price:['rmb','b']
+          },
+          {
+            id:'6',
+            img:'',
+            title:'',
+            desc:'',
+            price:['rmb','b']
+          }
+        ]
+      },
+      {
+        id:1,
+        img: "headPic.jpg",
+        info:[
+          {
+            id:'1',
+            img:'',
+            title:'',
+            desc:'',
+            price:['rmb','b']
+          },
+          {
+            id:'2',
+            img:'',
+            title:'',
+            desc:'',
+            price:['rmb','b']
+          },
+          {
+            id:'3',
+            img:'',
+            title:'',
+            desc:'',
+            price:['rmb','b']
+          },
+          {
+            id:'4',
+            img:'',
+            title:'',
+            desc:'',
+            price:['rmb','b']
+          },
+          {
+            id:'5',
+            img:'',
+            title:'',
+            desc:'',
+            price:['rmb','b']
+          },
+          {
+            id:'6',
+            img:'',
+            title:'',
+            desc:'',
+            price:['rmb','b']
+          }
         ]
       }
     ]
