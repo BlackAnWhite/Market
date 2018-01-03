@@ -18,17 +18,17 @@ export default {
           link: "/goodsClass"
         },
         {
-          name: "积分兑换",
+          name: "充值提现",
           icon: require("../assets/icon-grides2.png"),
           link: "#"
         },
         {
-          name: "积分兑换",
+          name: "客服咨询",
           icon: require("../assets/icon-grides3.png"),
           link: "#"
         },
         {
-          name: "积分兑换",
+          name: "消息中心",
           icon: require("../assets/icon-grides4.png"),
           link: "#"
         }

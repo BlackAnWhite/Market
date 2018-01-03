@@ -5,18 +5,51 @@ const router = require('koa-router')();
 router.get('/api', function(ctx, next) {
   ctx.body = 'Hello World!';
 });
-
+// 头像和默认搜索关键字
 router.get('/api/navIndex', function(ctx, next) {
   ctx.body = {
     data: {
       "headPic": "headPic.jpg",
       "keyWords": "iphone X",
-      test:ctx
+      test: ctx
     }
   };
 
-  console.log(ctx.query.id);
-  console.log('请求navindex成功!!');
+  // console.log(ctx.query.id);
+  console.log('请求navIndex成功!!');
+});
+
+//轮播图
+router.get('/api/banners', function(ctx, next) {
+  ctx.body = {
+    data: [
+      {
+        href: "https://www.baidu.com",
+        src: "banner.png"
+      }, {
+        href: "https://www.baidu.com",
+        src: "banner.png"
+      }
+    ]
+  }
+  console.log('请求banners成功!!');
+});
+
+// 专题组件
+router.get('/api/special', function(ctx, next) {
+  ctx.body = {
+    data: [
+      {
+        "img": "headPic.jpg",
+        "info":[
+
+        ]
+      }
+    ]
+  };
+
+  // console.log(ctx.query.id);
+  console.log('请求navIndex成功!!');
 });
 
 router.post('/api/submitComment', function(ctx, next) {

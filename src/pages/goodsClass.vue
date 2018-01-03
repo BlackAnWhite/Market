@@ -8,6 +8,7 @@
       <scrollTab></scrollTab>
     </section>
   <!-- </section> -->
+  <navbar navbar= "2" ></navbar>
 </section>
 </template>
 

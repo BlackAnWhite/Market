@@ -1,7 +1,7 @@
 <template>
-<yd-navbar title="分类">
-  <section slot="left" @click="handleBack">
-    <yd-navbar-back-icon ></yd-navbar-back-icon>
+<yd-navbar title="分类" bgcolor="#e8380d" color="#fff">
+  <section slot="left" @click="handleBack" >
+    <yd-navbar-back-icon color="#fff"></yd-navbar-back-icon>
   </section>
 </yd-navbar>
 </template>

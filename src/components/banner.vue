@@ -3,7 +3,7 @@
   <yd-slider autoplay="3000" style="height:3rem;">
     <yd-slider-item v-for="(banner,key,index) in banners" :key="index">
       <a v-bind:href="banner.href">
-          <img v-bind:src="banner.src">
+          <img v-bind:src=" host + banner.src">
         </a>
     </yd-slider-item>
   </yd-slider>
@@ -11,23 +11,23 @@
 </template>
 
 <script>
+import config from '@/config.js';
 export default {
   data () {
     return {
-      banners: [
-        {
-          href: 'https://www.baidu.com',
-          src: require('../assets/banner.png')
-        },
-        {
-          href: 'https://www.baidu.com',
-          src: require('../assets/banner.png')
-        }
-      ]
+      banners: [],
+      host: config.host
     }
   },
-  create: function(){
-    
+  created: function(){
+    // `this` 指向 vm 实例
+    let self = this;
+    this.$http.get('api/banners?id=666').then( data => {
+      let res = data.body.data;
+      // console.log(res);
+      // console.log(config.host);
+      this.banners.push(...res)
+    })
   }
 }
 </script>

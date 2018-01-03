@@ -25,6 +25,17 @@ vue.component("rollNotice", rollNotice);
 //注册宫格组件
 import grides from "@/components/grides";
 vue.component("grides", grides);
+//注册nav组件
+import navbar from "@/components/navbar";
+vue.component("navbar", navbar);
+//注册专题组件
+import special from "@/components/special";
+vue.component("special", special);
+
+
+
+
+
 
 export default {
   name: 'app'

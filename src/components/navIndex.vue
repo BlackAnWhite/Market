@@ -30,9 +30,8 @@ export default {
     let self = this;
     this.$http.get('api/navIndex?id=666').then( data => {
       let res = data.body.data;
-        console.log(data);
-        console.log(config.host);
-      // console.log(require(`${}`));
+        // console.log(res);
+        // console.log(config.host);
       self.headPic = config.host + res['headPic'];
       self.keyWords = res['keyWords'];
     })
