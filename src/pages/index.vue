@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container hasnav">
     <navIndex></navIndex>
     <banner></banner>
     <rollNotice></rollNotice>

@@ -61,4 +61,12 @@ export default {
   max-width: 750px;
   margin: 0 auto;
 }
+.hasnav{
+  padding-bottom: 1.2rem;
+}
+.autoimg{
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
 </style>

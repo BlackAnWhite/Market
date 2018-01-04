@@ -1,5 +1,5 @@
 <template>
-<section class="container">
+<section class="container hasnav">
   <nav class="nav">
     <navThere></navThere>
   </nav>
