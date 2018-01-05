@@ -31,7 +31,9 @@ vue.component("navbar", navbar);
 //注册专题组件
 import special from "@/components/special";
 vue.component("special", special);
-
+//注册热门推荐列表组件
+import goodslist from "@/components/goodslist";
+vue.component("goodslist", goodslist);
 
 
 import 'swiper/dist/css/swiper.css';
