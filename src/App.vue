@@ -11,8 +11,8 @@ import vue from "vue";
 import navIndex from "@/components/navIndex";
 vue.component("navIndex",navIndex);
 //注册通用TOP
-import navThere from "@/components/navThere";
-vue.component("navThere", navThere);
+import navThree from "@/components/navThree";
+vue.component("navThree", navThree);
 //注册分类组件
 import scrollTab from "@/components/scrollTab";
 vue.component("scrollTab", scrollTab);
@@ -64,7 +64,7 @@ export default {
   margin: 0 auto;
 }
 .hasnav{
-  padding-bottom: 1.2rem;
+  padding-bottom: 1rem;
 }
 .autoimg{
   background-size: cover;

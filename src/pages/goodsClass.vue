@@ -1,7 +1,7 @@
 <template>
 <section class="container hasnav">
   <nav class="nav">
-    <navThere></navThere>
+    <navThree></navThree>
   </nav>
   <!-- <section class="main"> -->
     <section class="goodsClass">

@@ -11,7 +11,7 @@ export default {
   methods : {
     handleBack () {
       this.$router.go(-1);
-      console.log(this.$router);
+      // console.log(this.$router);
     }
   }
 }

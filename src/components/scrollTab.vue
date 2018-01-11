@@ -1,39 +1,90 @@
 <template>
 <yd-scrolltab>
-  <yd-scrolltab-panel label="空调" icon="demo-icons-category1">
-    <div style="height: 350px;background-color: gray;"></div>
+  <yd-scrolltab-panel :label="item.name" v-for="(item, key) in data" :key="key">
+    <div class="subClass">
+      <a href="#" v-for="(sub, key) in item.sub" :key="key">{{ sub }}</a>
+    </div>
   </yd-scrolltab-panel>
-
-  <yd-scrolltab-panel label="冰箱" icon="demo-icons-category2" active>
-    <div style="height: 350px;background-color: blue;"></div>
-  </yd-scrolltab-panel>
-
-  <yd-scrolltab-panel label="洗衣机" icon="demo-icons-category3">
-    <div style="height: 350px;background-color: yellow;"></div>
-  </yd-scrolltab-panel>
-
-  <yd-scrolltab-panel label="洗衣机" icon="demo-icons-category3">
-    <div style="height: 350px;background-color: yellow;"></div>
-  </yd-scrolltab-panel>
-
-  <yd-scrolltab-panel label="洗衣机" icon="demo-icons-category3">
-    <div style="height: 350px;background-color: yellow;"></div>
-  </yd-scrolltab-panel>
-
-  <yd-scrolltab-panel label="洗衣机" icon="demo-icons-category3">
-    <div style="height: 350px;background-color: yellow;"></div>
-  </yd-scrolltab-panel>
-
   <!-- ... -->
-</yd-scrolltab> 
+</yd-scrolltab>
 </template>
 
 <script type="text/babel">
 export default {
-
+  data(){
+    return {
+      data:[
+        {
+          name:"家用电器",
+          sub:[
+            "电热水器",
+            "电热水器",
+            "电热水器",
+            "电热水器",
+            "电热水器"
+          ]
+        },
+        {
+          name:"电脑",
+          sub:[
+            "电热水器",
+            "电热水器",
+            "电热水器",
+            "电热水器",
+            "电热水器"
+          ]
+        },
+        {
+          name:"手机",
+          sub:[
+            "电热水器",
+            "电热水器",
+            "电热水器",
+            "电热水器",
+            "电热水器"
+          ]
+        },
+        {
+          name:"平板",
+          sub:[
+            "电热水器",
+            "电热水器",
+            "电热水器",
+            "电热水器",
+            "电热水器"
+          ]
+        },
+        {
+          name:"衣服鞋帽",
+          sub:[
+            "电热水器",
+            "电热水器",
+            "电热水器",
+            "电热水器",
+            "电热水器"
+          ]
+        },
+        {
+          name:"家用电器",
+          sub:[
+            "电热水器",
+            "电热水器",
+            "电热水器",
+            "电热水器",
+            "电热水器"
+          ]
+        }
+      ]
+    }
+  }
 }
 </script>
 
-<style lang="css">
-
+<style scoped>
+.demo-icons-category1{
+  display: block;
+  width: .24rem;
+  height:.24rem;
+  background: #f00;
+}
 </style>

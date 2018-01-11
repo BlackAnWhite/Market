@@ -44,9 +44,9 @@ export default {
     let self = this;
     this.$http.get('/api/special').then(res=>{
       let temp = res.body.data;
-      console.log(temp)
+      // console.log(temp)
       self.specials.push(...temp);
-      console.log(self.specials);
+      // console.log(self.specials);
     })
   }
 }
