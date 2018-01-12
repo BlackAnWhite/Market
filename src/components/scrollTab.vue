@@ -81,10 +81,11 @@ export default {
 </script>
 
 <style scoped>
-.demo-icons-category1{
-  display: block;
-  width: .24rem;
-  height:.24rem;
-  background: #f00;
+.subClass a{
+  display: inline-block;
+  margin-left: .2rem;
+  color: #999;
+  font-size: .28rem;
+  padding: .04rem;
 }
 </style>
