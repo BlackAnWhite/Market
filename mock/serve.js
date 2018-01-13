@@ -61,7 +61,7 @@ router.get('/api/special', function(ctx, next) {
             title: '现货 欧洲站2017 VIVI ',
             desc: '2017冬装新款女装时尚奢华超大毛领羽绒服女中长款',
             sales: 20,
-            mark: 4.8,
+            mark: 4.8, 
             oldPrice: 399, //原价
             price: [199, 500]
           }, {
