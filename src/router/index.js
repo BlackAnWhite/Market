@@ -6,6 +6,7 @@ import goodsClass from '@/pages/goodsClass'
 import shopcar from '@/pages/shopcar'
 import my from '@/pages/my'
 import search from '@/pages/search'
+import detail from '@/pages/detail'
 
 Vue.use(Router)
 
@@ -35,6 +36,11 @@ export default new Router({
       path: '/search',
       name: 'search',
       component: search
+    },
+    {
+      path: '/detail',
+      name: 'detail',
+      component: detail
     }
   ]
 })

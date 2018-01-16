@@ -10,7 +10,7 @@
         <yd-flexbox>
           <div class="head-pic autoimg" v-bind:style="{ backgroundImage : 'url(' + headPic + ')' }"></div>
           <yd-flexbox-item>
-            <p class="name">莺莺燕燕燕燕莺莺</p>
+            <p class="name">莺莺燕燕雁雁鹰鹰</p>
             <p class="id">ID: 2018520</p>
           </yd-flexbox-item>
           <div class="qrcode">
@@ -35,6 +35,37 @@
         </yd-flexbox>
       </div>
 
+    </div>
+    <div class="cenlist">
+      <yd-cell-group>
+
+        <yd-cell-item arrow type="link" href="#">
+            <span slot="left">我的订单</span>
+            <span slot="right">查看全部订单</span>
+        </yd-cell-item>
+        <yd-cell-item arrow type="link" href="#">
+            <span slot="left">我的消息</span>
+        </yd-cell-item>
+        <yd-cell-item arrow type="link" href="#">
+            <span slot="left">我的收藏</span>
+        </yd-cell-item>
+        <yd-cell-item arrow type="link" href="#">
+            <span slot="left">我的成员</span>
+        </yd-cell-item>
+        <yd-cell-item arrow type="link" href="#">
+            <span slot="left">个人信息</span>
+            <span slot="right">完善个人信息</span>
+        </yd-cell-item>
+        <yd-cell-item arrow type="link" href="#">
+            <span slot="left">收货地址</span>
+            <span slot="right">管理收货地址</span>
+        </yd-cell-item>
+        <yd-cell-item arrow type="link" href="#">
+            <span slot="left">客服咨询</span>
+            <span slot="right">666-6666666</span>
+        </yd-cell-item>
+
+    </yd-cell-group>
     </div>
   </div>
   <div class="bot">
@@ -141,5 +172,8 @@ export default {
 .money p span{
   color: #454545;
   font-size: .28rem;
+}
+.yd-cell:after {
+  border-bottom: 0 !important;
 }
 </style>

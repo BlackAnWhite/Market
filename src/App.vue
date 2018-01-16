@@ -71,4 +71,7 @@ export default {
   background-repeat: no-repeat;
   background-position: center;
 }
+.yd-navbar:after{
+  border-bottom: 0 !important;
+}
 </style>

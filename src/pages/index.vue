@@ -46,8 +46,11 @@ export default {
       let temp = res.body.data;
       // console.log(temp)
       self.specials.push(...temp);
-      // console.log(self.specials);
-    })
+      console.log(self.specials);
+    });
+    // this.$http.get('http://00.37518.com/index.php?m=Mobile&c=Index&a=Ads&rows=@value').then(res=>{
+    //   console.log(res.body);
+    // });
   }
 }
 </script>
