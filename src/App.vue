@@ -5,6 +5,8 @@
 </template>
 
 <script>
+document.title = '分领商城';
+
 // 引用vue
 import vue from "vue";
 // 注册首页TOP

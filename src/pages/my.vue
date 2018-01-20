@@ -14,10 +14,13 @@
             <p class="id">ID: 2018520</p>
           </yd-flexbox-item>
           <div class="qrcode">
-            <div class="icon-qrcode">
-              <img src="../assets/icon-qrcode.png" alt="">
-            </div>
-            <span>分享二维码</span>
+            <router-link to="/shareQR">
+              <div class="icon-qrcode">
+                <img src="../assets/icon-qrcode.png" alt="">
+              </div>
+              <span>分享二维码</span>
+            </router-link>
+
           </div>
         </yd-flexbox>
       </div>
@@ -39,28 +42,28 @@
     <div class="cenlist">
       <yd-cell-group>
 
-        <yd-cell-item arrow type="link" href="#">
+        <yd-cell-item arrow type="link" href="/myOrder">
             <span slot="left">我的订单</span>
             <span slot="right">查看全部订单</span>
         </yd-cell-item>
-        <yd-cell-item arrow type="link" href="#">
+        <yd-cell-item arrow type="link" href="/messages">
             <span slot="left">我的消息</span>
         </yd-cell-item>
-        <yd-cell-item arrow type="link" href="#">
+        <yd-cell-item arrow type="link" href="/collect">
             <span slot="left">我的收藏</span>
         </yd-cell-item>
-        <yd-cell-item arrow type="link" href="#">
+        <yd-cell-item arrow type="link" href="/childrens">
             <span slot="left">我的成员</span>
         </yd-cell-item>
-        <yd-cell-item arrow type="link" href="#">
+        <yd-cell-item arrow type="link" href="/myInfo">
             <span slot="left">个人信息</span>
             <span slot="right">完善个人信息</span>
         </yd-cell-item>
-        <yd-cell-item arrow type="link" href="#">
+        <yd-cell-item arrow type="link" href="/adress">
             <span slot="left">收货地址</span>
             <span slot="right">管理收货地址</span>
         </yd-cell-item>
-        <yd-cell-item arrow type="link" href="#">
+        <yd-cell-item arrow type="link" href="contact">
             <span slot="left">客服咨询</span>
             <span slot="right">666-6666666</span>
         </yd-cell-item>

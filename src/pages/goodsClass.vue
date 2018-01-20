@@ -17,7 +17,6 @@
 
 export default {
   created() {
-    document.title = '分类';
     this.$http.get('http://00.37518.com/index.php?m=Mobile&c=Index&a=GoodsCats').then(res=>{
       console.log(res.body);
     });

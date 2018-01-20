@@ -1,13 +1,15 @@
 <template>
-<yd-layout class="hasnav">
-
-  <yd-navbar slot="navbar" title="购物车" bgcolor="#e8380d" color="#fff">
-
-  </yd-navbar>
-
+<div class="container   hasnav">
+  <div class="top">
+    <yd-navbar title="我的收藏" bgcolor="#d94927" color="#fff">
+      <section slot="left" @click="handleBack">
+        <yd-navbar-back-icon color="#fff"></yd-navbar-back-icon>
+      </section>
+    </yd-navbar>
+  </div>
 
   <div class="cen">
-    <yd-checklist v-model="checklist" :label="false" color="#e8380d">
+    <yd-checklist v-model="checklist" :label="false" color="#e8380d" ref="checklistDemo" :callback="change">
       <!-- 循环shop -->
       <div class="shop">
         <div class="shop-tit">
@@ -21,9 +23,7 @@
               <div class="goods-type">
                 <span>草木绿</span> <span>64g</span> <span>官方标配</span>
               </div>
-              <p style="color:#e8380d;"><span>￥20</span>
-                <yd-spinner class="goods-num" v-model="spinner" max="100"></yd-spinner>
-              </p>
+              <p style="color:#e8380d;"><span>￥20</span></p>
             </yd-flexbox-item>
           </yd-flexbox>
         </yd-checklist-item>
@@ -35,9 +35,7 @@
               <div class="goods-type">
                 <span>草木绿</span> <span>64g</span> <span>官方标配</span>
               </div>
-              <p style="color:#e8380d;"><span>￥20</span>
-                <yd-spinner class="goods-num" v-model="spinner" max="100"></yd-spinner>
-              </p>
+              <p style="color:#e8380d;"><span>￥20</span></p>
             </yd-flexbox-item>
           </yd-flexbox>
         </yd-checklist-item>
@@ -56,9 +54,7 @@
               <div class="goods-type">
                 <span>草木绿</span> <span>64g</span> <span>官方标配</span>
               </div>
-              <p style="color:#e8380d;"><span>￥20</span>
-                <yd-spinner class="goods-num" v-model="spinner" max="100"></yd-spinner>
-              </p>
+              <p style="color:#e8380d;"><span>￥20</span></p>
             </yd-flexbox-item>
           </yd-flexbox>
         </yd-checklist-item>
@@ -70,9 +66,7 @@
               <div class="goods-type">
                 <span>草木绿</span> <span>64g</span> <span>官方标配</span>
               </div>
-              <p style="color:#e8380d;"><span>￥20</span>
-                <yd-spinner class="goods-num" v-model="spinner" max="100"></yd-spinner>
-              </p>
+              <p style="color:#e8380d;"><span>￥20</span></p>
             </yd-flexbox-item>
           </yd-flexbox>
         </yd-checklist-item>
@@ -91,9 +85,7 @@
               <div class="goods-type">
                 <span>草木绿</span> <span>64g</span> <span>官方标配</span>
               </div>
-              <p style="color:#e8380d;"><span>￥20</span>
-                <yd-spinner class="goods-num" v-model="spinner" max="100"></yd-spinner>
-              </p>
+              <p style="color:#e8380d;"><span>￥20</span></p>
             </yd-flexbox-item>
           </yd-flexbox>
         </yd-checklist-item>
@@ -105,9 +97,7 @@
               <div class="goods-type">
                 <span>草木绿</span> <span>64g</span> <span>官方标配</span>
               </div>
-              <p style="color:#e8380d;"><span>￥20</span>
-                <yd-spinner class="goods-num" v-model="spinner" max="100"></yd-spinner>
-              </p>
+              <p style="color:#e8380d;"><span>￥20</span></p>
             </yd-flexbox-item>
           </yd-flexbox>
         </yd-checklist-item>
@@ -120,24 +110,37 @@
   <div class="payBtnBox" slot="bottom">
     <yd-flexbox>
       <div class="del-btn">
-        <yd-icon size=".4rem" color="#b2b2b2" name="delete"></yd-icon>
+        <yd-checkbox v-model="isCheckAll" shape="circle" color="#e8380d" :change="checkAll">全选</yd-checkbox>
       </div>
-      <yd-flexbox-item class="sum">总计：<span>￥0</span></yd-flexbox-item>
-      <div class="pay-btn">结 算</div>
+      <yd-flexbox-item class="sum">已选：<i>{{checklist.length}}</i></yd-flexbox-item>
+      <div class="pay-btn">删 除</div>
     </yd-flexbox>
   </div>
 
-  <navbar slot="tabbar" navbar="3"></navbar>
 
 
-</yd-layout>
+</div>
 </template>
 
 <script type="text/babel">
 export default {
   data() {
     return {
-      checklist: []
+      checklist: [],
+      isCheckAll: false
+    }
+  },
+  methods: {
+    handleBack() {
+      this.$router.go(-1);
+      // console.log(this.$router);
+    },
+    change(value, isCheckAll) {
+      this.isCheckAll = isCheckAll;
+    },
+    checkAll() {
+      this.isCheckAll = !this.isCheckAll;
+      this.$refs.checklistDemo.$emit('ydui.checklist.checkall', this.isCheckAll);
     }
   }
 }
@@ -145,7 +148,7 @@ export default {
 
 <style scoped>
 .hasnav {
-  padding-bottom: 2.1rem;
+  padding-bottom: 1.1rem;
 }
 
 .yd-checklist:after {
@@ -179,10 +182,6 @@ export default {
   padding-left: .2rem;
 }
 
-.goods-right p:last-child {
-  line-height: .6rem;
-}
-
 .goods-num {
   float: right;
   color: #666;
@@ -193,14 +192,13 @@ export default {
   width: 100%;
   height: 1rem;
   color: #fff;
-  bottom: 1.08rem;
+  bottom: 0;
   background: #efefef;
   z-index: 99;
 }
 
 .del-btn {
-  width: .8rem;
-  line-height: 1rem;
+  width: 1.8rem;
   text-align: center;
   border-right: 1px solid #ececec;
 }

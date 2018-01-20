@@ -83,21 +83,21 @@
       </div>
       <div class="choose-cen">
         <div class="choose-type">
-          <p>选择规格：</p>
-          <yd-radio-group v-model="radio" color="#e8380d">
-            <p><yd-radio val="1">4g + 32g 白色</yd-radio></p>
-            <p><yd-radio val="2">4g + 32g 黑色</yd-radio></p>
-            <p><yd-radio val="3">4g + 32g 绿色</yd-radio></p>
-            <p><yd-radio val="4">4g + 64g 白色</yd-radio></p>
-            <p><yd-radio val="5">4g + 64g 黑色</yd-radio></p>
-            <p><yd-radio val="6">4g + 64g 绿色</yd-radio></p>
-            <p><yd-radio val="7">6g + 64g 白色</yd-radio></p>
-            <p><yd-radio val="8">6g + 64g 黑色</yd-radio></p>
-            <p><yd-radio val="9">6g + 64g 绿色</yd-radio></p>
+          <p class="choose-type-tit">选择规格：</p>
+          <yd-radio-group v-model="radio" size="16" color="#e8380d">
+            <span><yd-radio val="1">4g + 32g 白色</yd-radio></span>
+            <span><yd-radio val="2">4g + 32g 黑色</yd-radio></span>
+            <span><yd-radio val="3">4g + 32g 绿色</yd-radio></span>
+            <span><yd-radio val="4">4g + 64g 白色</yd-radio></span>
+            <span><yd-radio val="5">4g + 64g 黑色</yd-radio></span>
+            <span><yd-radio val="6">4g + 64g 绿色</yd-radio></span>
+            <span><yd-radio val="7">6g + 64g 白色</yd-radio></span>
+            <span><yd-radio val="8">6g + 64g 黑色</yd-radio></span>
+            <span><yd-radio val="9">6g + 64g 绿色</yd-radio></span>
           </yd-radio-group>
         </div>
         <div class="choose-num">
-          <p>选择数量：</p>
+          <p class="choose-type-tit">选择数量：</p>
            <yd-spinner v-model="spinner" max="100"></yd-spinner>
            <span>库存：100</span>
         </div>
@@ -165,6 +165,9 @@ export default {
        },
        methods:{
          inCar(){
+           this.$http.get('http://00.37518.com/index.php?m=Mobile&c=Cart&a=addToCartAjax&userId=40&goodsId=215&goodsCnt=3&goodsAttrId=33').then(res=>{
+             console.log(res);
+           })
            alert('加入购物车成功');
          },
          buyNow(){
@@ -195,6 +198,47 @@ export default {
   height: auto;
   padding: .1rem .2rem;
   border-bottom:1px solid #e5e5e5;
+}
+.choose-top .choose-tit{
+  font-size: .30rem;
+  color: #333;
+  font-weight: bold;
+}
+.choose-top .choosed{
+  font-size: .28rem;
+  line-height: .5rem;
+  color: #999;
+}
+.choose-top .choosed span{
+  color: #353535;
+}
+.choose-top .choosed span i{
+  color: #e8380d;
+}
+.choose-cen{
+  padding: .1rem .2rem;
+}
+.choose-cen .choose-type-tit{
+  line-height: .5rem;
+  color: #353535;
+}
+.choose-type{
+  margin-bottom: .2rem;
+}
+.choose-type span{
+  display: inline-block;
+  height: .7rem;
+  margin-right: .2rem;
+}
+.choose-num{
+  clear: both;
+}
+.choose-num span:last-child{
+  margin-left: .2rem;
+  float: right;
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
 }
 /* 商品详情 */
 
