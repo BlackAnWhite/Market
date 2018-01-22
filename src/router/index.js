@@ -12,6 +12,9 @@ import shareQR from '@/pages/shareQR'
 import myOrder from '@/pages/myOrder'
 import collect from '@/pages/collect'
 import messages from '@/pages/messages'
+import msgInfo from '@/pages/msgInfo'
+import mySub from '@/pages/mySub'
+import myInfo from '@/pages/myInfo'
 
 Vue.use(Router)
 
@@ -66,6 +69,21 @@ export default new Router({
       path: '/messages',
       name: 'messages',
       component: messages,
+    },
+    {
+      path: '/msgInfo',
+      name: 'msgInfo',
+      component: msgInfo,
+    },
+    {
+      path: '/mySub',
+      name: 'mySub',
+      component: mySub,
+    },
+    {
+      path: '/myInfo',
+      name: 'myInfo',
+      component: myInfo,
     },
   ]
 })

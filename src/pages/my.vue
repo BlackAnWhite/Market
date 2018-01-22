@@ -52,8 +52,8 @@
         <yd-cell-item arrow type="link" href="/collect">
             <span slot="left">我的收藏</span>
         </yd-cell-item>
-        <yd-cell-item arrow type="link" href="/childrens">
-            <span slot="left">我的成员</span>
+        <yd-cell-item arrow type="link" href="/mySub">
+            <span slot="left">我的会员</span>
         </yd-cell-item>
         <yd-cell-item arrow type="link" href="/myInfo">
             <span slot="left">个人信息</span>
