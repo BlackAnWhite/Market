@@ -1,13 +1,19 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
-import index from '@/pages/index'
-import goodsClass from '@/pages/goodsClass'
-import shopcar from '@/pages/shopcar'
-import my from '@/pages/my'
-import search from '@/pages/search'
-
+//首页
+import home from '@/pages/home'
+import shop from '@/pages/shop'
 import detail from '@/pages/detail'
+//积分兑换
+import pointMarket from '@/pages/pointMarket'
+//分类
+import goodsClass from '@/pages/goodsClass'
+//购物车
+import shopcar from '@/pages/shopcar'
+//搜索
+import search from '@/pages/search'
+//个人中心
+import my from '@/pages/my'
 import shareQR from '@/pages/shareQR'
 import myOrder from '@/pages/myOrder'
 import collect from '@/pages/collect'
@@ -15,6 +21,13 @@ import messages from '@/pages/messages'
 import msgInfo from '@/pages/msgInfo'
 import mySub from '@/pages/mySub'
 import myInfo from '@/pages/myInfo'
+import myLeader from '@/pages/myLeader'
+import address from '@/pages/address'
+import addAddress from '@/pages/addAddress'
+import contact from '@/pages/contact'
+import myPoint from '@/pages/myPoint'
+import myMoney from '@/pages/myMoney'
+import comment from '@/pages/comment'
 
 Vue.use(Router)
 
@@ -22,8 +35,18 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'index',
-      component: index
+      name: 'home',
+      component: home
+    },
+    {
+      path: '/shop',
+      name: 'shop',
+      component: shop
+    },
+    {
+      path: '/pointMarket',
+      name: 'pointMarket',
+      component: pointMarket
     },
     {
       path: '/goodsClass',
@@ -85,5 +108,40 @@ export default new Router({
       name: 'myInfo',
       component: myInfo,
     },
+    {
+      path: '/myLeader',
+      name: 'myLeader',
+      component: myLeader,
+    },
+    {
+      path: '/address',
+      name: 'address',
+      component: address,
+    },
+    {
+      path: '/addAddress',
+      name: 'addAddress',
+      component: addAddress,
+    },
+    {
+      path: '/contact',
+      name: 'contact',
+      component: contact,
+    },
+    {
+      path: '/myPoint',
+      name: 'myPoint',
+      component: myPoint,
+    },
+    {
+      path: '/myMoney',
+      name: 'myMoney',
+      component: myMoney,
+    },
+    {
+      path: '/comment',
+      name: 'comment',
+      component: comment,
+    }
   ]
 })

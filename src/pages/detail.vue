@@ -72,6 +72,14 @@
         </yd-tab-panel>
       </yd-tab>
     </div>
+
+    <!-- 本店其他商品 -->
+    <div class="other">
+      <div class="other-tit">
+        本店其他商品
+      </div>
+      <goodslist theme="3"></goodslist>
+    </div>
   </div>
 
   <!-- 弹出选择框 -->
@@ -98,8 +106,8 @@
         </div>
         <div class="choose-num">
           <p class="choose-type-tit">选择数量：</p>
-           <yd-spinner v-model="spinner" max="100"></yd-spinner>
-           <span>库存：100</span>
+          <yd-spinner v-model="spinner" max="100"></yd-spinner>
+          <span>库存：100</span>
         </div>
 
 
@@ -108,12 +116,12 @@
         <yd-flexbox>
           <yd-flexbox-item>
             <div class="inCar">
-              <yd-button  bgcolor="#353535" color="#FFF" @click.native="inCar">加入购物车</yd-button>
+              <yd-button bgcolor="#353535" color="#FFF" @click.native="inCar">加入购物车</yd-button>
             </div>
           </yd-flexbox-item>
           <yd-flexbox-item>
             <div class="buy" @click.native="show = true">
-              <yd-button  bgcolor="#e8380d" color="#FFF" @click.native="buyNow">立即购买</yd-button>
+              <yd-button bgcolor="#e8380d" color="#FFF" @click.native="buyNow">立即购买</yd-button>
             </div>
 
           </yd-flexbox-item>
@@ -140,12 +148,12 @@
       </div>
       <yd-flexbox-item>
         <div class="inCar">
-          <yd-button  bgcolor="#353535" color="#FFF" @click.native="show = true">加入购物车</yd-button>
+          <yd-button bgcolor="#353535" color="#FFF" @click.native="show = true">加入购物车</yd-button>
         </div>
       </yd-flexbox-item>
       <yd-flexbox-item>
         <div class="buy" @click.native="show = true">
-          <yd-button  bgcolor="#e8380d" color="#FFF" @click.native="show = true">立即购买</yd-button>
+          <yd-button bgcolor="#e8380d" color="#FFF" @click.native="show = true">立即购买</yd-button>
         </div>
 
       </yd-flexbox-item>
@@ -156,25 +164,25 @@
 
 <script>
 export default {
-       data() {
-           return {
-               show: false,
-               radio:1,
-               spinner:1
-           }
-       },
-       methods:{
-         inCar(){
-           this.$http.get('http://00.37518.com/index.php?m=Mobile&c=Cart&a=addToCartAjax&userId=40&goodsId=215&goodsCnt=3&goodsAttrId=33').then(res=>{
-             console.log(res);
-           })
-           alert('加入购物车成功');
-         },
-         buyNow(){
-           alert('购买成功');
-         }
-       }
-   }
+  data() {
+    return {
+      show: false,
+      radio: 1,
+      spinner: 1
+    }
+  },
+  methods: {
+    inCar() {
+      this.$http.get('http://00.37518.com/index.php?m=Mobile&c=Cart&a=addToCartAjax&userId=40&goodsId=215&goodsCnt=3&goodsAttrId=33').then(res => {
+        console.log(res);
+      })
+      alert('加入购物车成功');
+    },
+    buyNow() {
+      alert('购买成功');
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -183,63 +191,78 @@ export default {
   height: 7.5rem;
   overflow: hidden;
 }
+
 /* 弹出选择框 */
-.choose{
+
+.choose {
   width: 100%;
   height: 60%;
   position: relative;
 }
-.choose .btn-group{
+
+.choose .btn-group {
   width: 100%;
   height: 1rem;
 }
-.choose-top{
+
+.choose-top {
   width: 100%;
   height: auto;
   padding: .1rem .2rem;
-  border-bottom:1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
 }
-.choose-top .choose-tit{
+
+.choose-top .choose-tit {
   font-size: .30rem;
   color: #333;
   font-weight: bold;
 }
-.choose-top .choosed{
+
+.choose-top .choosed {
   font-size: .28rem;
   line-height: .5rem;
   color: #999;
 }
-.choose-top .choosed span{
+
+.choose-top .choosed span {
   color: #353535;
 }
-.choose-top .choosed span i{
+
+.choose-top .choosed span i {
   color: #e8380d;
 }
-.choose-cen{
+
+.choose-cen {
   padding: .1rem .2rem;
 }
-.choose-cen .choose-type-tit{
+
+.choose-cen .choose-type-tit {
   line-height: .5rem;
   color: #353535;
 }
-.choose-type{
+
+.choose-type {
   margin-bottom: .2rem;
 }
-.choose-type span{
+
+.choose-type span {
   display: inline-block;
   height: .7rem;
   margin-right: .2rem;
 }
-.choose-num{
+
+.choose-num {
   clear: both;
 }
-.choose-num span:last-child{
+
+.choose-num span:last-child {
   margin-left: .2rem;
   float: right;
   display: inline-block;
   height: 30px;
   line-height: 30px;
 }
+
 /* 商品详情 */
 
 .goodsinfo {
@@ -247,10 +270,12 @@ export default {
   background: #ffffff;
   margin-bottom: .2rem;
 }
-.goods-info img{
-  width:100%;
-  display:block;
+
+.goods-info img {
+  width: 100%;
+  display: block;
 }
+
 .goodsinfo .goods-tit {
   font-size: .28rem;
   color: #353535;
@@ -279,35 +304,42 @@ export default {
   font-size: .24rem;
   color: #999;
 }
+
 /* 评论 */
-.comment{
+
+.comment {
   width: 100%;
   padding-bottom: .2rem;
   background: #f4f8fe;
 }
-.comment-item{
+
+.comment-item {
   width: 100%;
   height: auto;
   background: #ffffff;
   padding: .1rem .2rem;
   margin-bottom: .2rem;
 }
-.comment-item p{
+
+.comment-item p {
   width: 100%;
   line-height: .5rem;
   color: #454545;
   font-size: .28rem;
 }
-.comment-item p span{
+
+.comment-item p span {
   float: right;
   font-size: .24rem;
   color: #999;
 }
-.comment-item .com-info{
+
+.comment-item .com-info {
   line-height: .4rem;
   font-size: .24rem;
   color: #888;
 }
+
 /* 固定底部 */
 
 .bot {
@@ -329,9 +361,11 @@ export default {
   color: #fff;
   font-size: .30rem;
 }
-.yd-btn{
+
+.yd-btn {
   font-size: .30rem;
 }
+
 .inCar {
   width: 100%;
   height: 1rem;
@@ -363,5 +397,14 @@ export default {
 
 .collect {
   margin-left: .15rem;
+}
+
+.other .other-tit{
+  width: 100%;
+  height: .8rem;
+  line-height: .8rem;
+  font-size: .32rem;
+  padding: 0 .2rem;
+  color: #333;
 }
 </style>

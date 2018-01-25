@@ -2,6 +2,16 @@
 ### 分领商城
 >  webpack + vue + ydui
 
+``` bash
+npm run dev
+# run at localhost:8080
+npm run mock
+# serves start
+anywhere -p 520
+# pic serves start
+```
+
+
 ## Build Setup
 
 ``` bash

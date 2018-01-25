@@ -28,12 +28,16 @@
       <div class="money">
         <yd-flexbox>
           <yd-flexbox-item>
-            <p>100</p>
-            <p><span>积分</span></p>
+            <router-link to="/myPoint">
+              <p>100</p>
+              <p><span>积分</span></p>
+            </router-link>
           </yd-flexbox-item>
           <yd-flexbox-item>
-            <p>99</p>
-            <p><span>电子币</span></p>
+            <router-link to="/myMoney">
+              <p>99999</p>
+              <p><span>电子券</span></p>
+            </router-link>
           </yd-flexbox-item>
         </yd-flexbox>
       </div>
@@ -56,16 +60,18 @@
             <span slot="left">我的会员</span>
         </yd-cell-item>
         <yd-cell-item arrow type="link" href="/myInfo">
-            <span slot="left">个人信息</span>
-            <span slot="right">完善个人信息</span>
+            <span slot="left">绑定手机号</span>
         </yd-cell-item>
-        <yd-cell-item arrow type="link" href="/adress">
+        <yd-cell-item arrow type="link" href="/myLeader">
+            <span slot="left">绑定推荐人</span>
+        </yd-cell-item>
+        <yd-cell-item arrow type="link" href="/address">
             <span slot="left">收货地址</span>
             <span slot="right">管理收货地址</span>
         </yd-cell-item>
         <yd-cell-item arrow type="link" href="contact">
             <span slot="left">客服咨询</span>
-            <span slot="right">666-6666666</span>
+            <!-- <span slot="right">666-6666666</span> -->
         </yd-cell-item>
 
     </yd-cell-group>

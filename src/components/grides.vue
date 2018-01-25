@@ -15,22 +15,22 @@ export default {
         {
           name: "积分兑换",
           icon: require("../assets/icon-grides1.png"),
-          link: "/goodsClass"
+          link: "/pointMarket"
         },
         {
           name: "充值提现",
           icon: require("../assets/icon-grides2.png"),
-          link: "#"
+          link: "/myMoney"
         },
         {
           name: "客服咨询",
           icon: require("../assets/icon-grides3.png"),
-          link: "#"
+          link: "/contact"
         },
         {
           name: "消息中心",
           icon: require("../assets/icon-grides4.png"),
-          link: "#"
+          link: "messages"
         }
       ]
     }

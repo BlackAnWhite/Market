@@ -137,6 +137,7 @@
 export default {
   data() {
     return {
+      spinner: 0,
       checklist: []
     }
   }
