@@ -2,31 +2,34 @@
 <div class="rollNotice">
 
   <yd-rollnotice autoplay="2000" style="background: transparent !important;" height="40">
-    <yd-rollnotice-item v-for="(notice,key,index) in notices" :key="index">
-      <span style="color:#e8380d; padding-right: .1rem"> 荐 </span>
-      {{ notice.tit }}
-    </yd-rollnotice-item>
+      <yd-rollnotice-item v-for="(notice,key,index) in notices" :key="index">
+        <span style="color:#e8380d; padding-right: .1rem"> 荐 </span>
+        {{ notice.articleTitle }}
+      </yd-rollnotice-item>
+
   </yd-rollnotice>
 
 </div>
 </template>
 
 <script>
+import config from '@/config.js';
+
 export default {
   data() {
     return {
-      notices: [
-        {
-          tit: "荣耀V9 1月超级钜惠！下单立减200元"
-        },
-        {
-          tit: "平台招商入驻 加盟火热进行中..."
-        },
-        {
-          tit: "平台年终钜惠 海量商品最低5折起..."
-        }
-      ]
+      notices: [],
+      userId:40,
+      host: config.host
     }
+  },
+  created(){
+    let url = `${config.host}index.php?m=Mobile&c=Index&a=loadMessages&p=@value`;
+    this.$http.get(url).then(res=>{
+      let data = res.body;
+      // console.log(data);
+      this.notices.push(...data)
+    })
   }
 }
 </script>

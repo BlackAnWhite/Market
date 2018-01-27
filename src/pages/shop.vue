@@ -19,10 +19,21 @@
           </yd-slider-item>
         </yd-slider> -->
       </div>
+      <!-- 联系方式 -->
+      <div class="contact">
+        <p class="shop-name">测试店铺111</p>
+        <p class="shop-area">所在地区：<span>广东省广州市天河区</span></p>
+        <p class="shop-tel">联系方式：<span>69458636</span></p>
+      </div>
+
+      <div class="goods-list">
+        <p class="title">
+          店内所有商品
+        </p>
+        <goodslist theme="3"></goodslist>
+      </div>
     </div>
 
-    <!-- 联系方式 -->
-    .
 
   </div>
 </template>
@@ -42,9 +53,42 @@ export default {
 .main-pic{
   width: 100%;
   height: 4rem;
+  background-color: #666;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   overflow: hidden;
+}
+.contact{
+  width: 100%;
+  background: #ffffff;
+  padding: 0.1rem .2rem;
+}
+.contact .shop-name{
+  height: .8rem;
+  line-height: .8rem;
+  color: #353535;
+  font-size: .3rem;
+  font-weight: bold;
+}
+.contact .shop-area,
+.contact .shop-tel{
+  line-height: .7rem;
+}
+.contact .shop-area span,
+.contact .shop-tel span{
+  float: right;
+  font-size: .24rem;
+}
+.goods-list {
+  margin-top: .2rem;
+}
+.goods-list .title{
+  padding: 0 .2rem;
+  font-size: .28rem;
+  color: #353535;
+  font-weight: bold;
+  line-height: .8rem;
+  background: #ffffff;
 }
 </style>

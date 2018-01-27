@@ -17,6 +17,7 @@
 
 <script>
 import config from '@/config.js';
+
 export default {
   name: 'navIndex',
   data() {
@@ -26,14 +27,16 @@ export default {
     }
   },
   created: function() {
+    let userId = 40,
+        url = `${config.host}index.php?m=Mobile&c=Index&a=loadConfigs&userId=${userId}`;
     // `this` 指向 vm 实例
     let self = this;
-    this.$http.get('api/navIndex?id=666').then( data => {
-      let res = data.body.data;
-        // console.log(res);
-        // console.log(config.host);
-      self.headPic = config.host + res['headPic'];
-      self.keyWords = res['keyWords'];
+    this.$http.get(url).then( res => {
+      let data = res.body;
+        // console.log(data);
+        // console.log(data['hotSearchs']);
+      self.headPic = config.host + data['goodsImg'];
+      self.keyWords = data['hotSearchs'][0];
     })
   }
 }

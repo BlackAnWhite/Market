@@ -35,7 +35,7 @@
       </div>
       <div class="goods-desc">Meitu/美图 M6S 4G全网通美图手机指纹自拍美颜手机M6 自拍神器M8
       </div>
-      <div class="goods-price">￥229 <span class="goods-sales">评分: 4.8 &nbsp; 已售: 20</span>
+      <div class="goods-price">￥229 <span class="goods-sales">评分: 4.8 &nbsp; 已售: 20</span> <span class="postage">快递：免邮</span>
       </div>
 
     </div>
@@ -171,6 +171,9 @@ export default {
       spinner: 1
     }
   },
+  created(){
+    const goodsId = this.$router.params.goodsId; 
+  },
   methods: {
     inCar() {
       this.$http.get('http://00.37518.com/index.php?m=Mobile&c=Cart&a=addToCartAjax&userId=40&goodsId=215&goodsCnt=3&goodsAttrId=33').then(res => {
@@ -299,10 +302,15 @@ export default {
   padding: 0 .2rem;
 }
 
-.goods-price .goods-sales {
+.goods-price .goods-sales,
+.goods-price .postage {
   float: right;
   font-size: .24rem;
   color: #999;
+}
+
+.postage{
+  margin-right: 1rem;
 }
 
 /* 评论 */
@@ -406,5 +414,7 @@ export default {
   font-size: .32rem;
   padding: 0 .2rem;
   color: #333;
+  background: #ffffff;
+  margin-top: .2rem;
 }
 </style>

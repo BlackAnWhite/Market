@@ -1,22 +1,22 @@
 <template>
 <div class="scroll-list">
-  <div class="top autoimg" :style="{ backgroundImage : 'url(' + data.img + ')' }">
-    <!-- <img :src="data.img" alt=""> -->
+  <div class="top autoimg" :style="{ backgroundImage : 'url(' + specialData.adFile + ')' }">
+    <!-- <img :src="specialData.img" alt=""> -->
   </div>
   <swiper :options="swiperOption" class="slist-box">
-    <swiper-slide class="list-item" v-for="(item,index) of data.list" :key="index">
-      <router-link :to="'/detail?'+item.id">
-        <div class="goods-img autoimg" :style="{ backgroundImage : 'url(' + item.img + ')' }">
+    <swiper-slide class="list-item" v-for="(item,index) of specialData.goodsChilds" :key="index">
+      <router-link :to="{name:'detail',params:{goodsId: item.goodsId}}">
+        <div class="goods-img autoimg" :style="{ backgroundImage : 'url(' + item.goodsImg + ')' }">
           <!-- 商品小图 -->
         </div>
         <div class="goods-info">
-          <p class="goods-tit">{{ item.title }}</p>
+          <p class="goods-tit">{{ item.goodsName }}</p>
           <div class="goods-desc">
-            {{ item.desc }}
+            {{ item.goodsSpec }}
           </div>
           <p class="goods-price">
-            <span v-if="item.price.length == 1">&yen;{{item.price[0]}}</span>
-            <span v-if="item.price.length == 2">&yen;{{item.price[0]}}+<i>฿</i>{{item.price[1]}}</span>
+            <span>&yen;{{item.goodsPrice}}</span>
+            <!-- <span v-if="item.price.length == 2">&yen;{{item.price[0]}}+<i>฿</i>{{item.price[1]}}</span> -->
           </p>
         </div>
       </router-link>
@@ -42,14 +42,16 @@ export default {
     }
   },
   props: {
-    data: {
-      default: {}
+    specialData: {
+      default: []
     }
   },
   created() {
-    this.data.img = config.host + this.data.img;
-    for (let i = 0; i < this.data.list.length; i++) {
-      this.data.list[i].img = config.host + this.data.list[i].img;
+    let self = this;
+    // console.log(self.specialData.goodsChilds.length);
+    self.specialData.adFile = config.host + self.specialData.adFile;
+    for (let i = 0; i < self.specialData.goodsChilds.length; i++) {
+      self.specialData.goodsChilds[i].goodsImg = config.host + self.specialData.goodsChilds[i].goodsImg;
     }
   }
 }

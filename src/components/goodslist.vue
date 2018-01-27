@@ -38,6 +38,9 @@ export default {
   props: {
     theme: {
       default: 3
+    },
+    url: {
+      default:''
     }
   },
   data() {
@@ -49,20 +52,22 @@ export default {
     let self = this;
     this.page = 1 ;
     this.pageSize = 10 ;
-    self.$http.get(`/api/goodslist?page=${this.page}`).then( res => {
-      this.page++;
-      let data = res.body.data.list;
-      for (let i = 0; i < data.length; i++) {
-        data[i].img = config.host + data[i].img;
-      };
-      console.log(data);
-      this.data.push(...data);
+    console.log(this.url);
+    self.$http.get(`${this.url}${this.page}`).then( res => {
+      console.log(res);
+      // this.page++;
+      // let data = res.body.data.list;
+      // for (let i = 0; i < data.length; i++) {
+      //   data[i].img = config.host + data[i].img;
+      // };
+      // console.log(data);
+      // this.data.push(...data);
     });
 
   },
   methods: {
     loadList() {
-      this.$http.get(`/api/goodslist?page=${this.page}`, {
+      this.$http.get(`url${this.page}`, {
         params: {
           page: this.page,
           pagesize: this.pageSize

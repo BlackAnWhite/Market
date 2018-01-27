@@ -7,14 +7,16 @@
     <banner></banner>
     <!-- 轮播图 end-->
     <!-- 滚动公告 -->
-    <rollNotice></rollNotice>
+    <router-link :to="{name:'messages',params:{userId:userId}}">
+      <rollNotice></rollNotice>
+    </router-link>
     <!-- 滚动公告 end-->
     <!-- 宫格快捷入口 -->
     <grides></grides>
     <!-- 宫格快捷入口 end-->
     <!-- 专题模块 -->
     <div class="special-list" v-for="(item,index) of specials" :key="index">
-      <special :data="item"></special>
+      <special :specialData="item"></special>
     </div>
     <!-- 专题模块 end-->
     <!-- 热门推荐列表 -->
@@ -23,7 +25,7 @@
         <span>热门推荐</span>
       </div>
       <div class="goods-sug-box">
-        <goodslist></goodslist>
+        <goodslist :url="url"></goodslist>
       </div>
     </div>
     <!-- 热门推荐列表 end-->
@@ -34,23 +36,24 @@
 </template>
 
 <script>
+import config from '@/config.js';
 export default {
   data(){
     return {
-      specials:[]
+      specials:[],
+      url:`${config.host}index.php?m=Mobile&c=Index&a=goodsHot&p=`,
     }
   },
   created(){
     let self = this;
-    this.$http.get('/api/special').then(res=>{
-      let temp = res.body.data;
-      // console.log(temp)
+    let specialUrl = `${config.host}index.php?m=Mobile&c=Index&a=Ads&rows=20`;
+
+    this.$http.get(specialUrl).then(res=>{
+      let temp = res.body;
+      // console.log(temp);
       self.specials.push(...temp);
-      console.log(self.specials);
+      // console.log(self.specials);
     });
-    // this.$http.get('http://00.37518.com/index.php?m=Mobile&c=Index&a=Ads&rows=@value').then(res=>{
-    //   console.log(res.body);
-    // });
   }
 }
 </script>

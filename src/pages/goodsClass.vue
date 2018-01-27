@@ -14,10 +14,13 @@
 
 <script type="text/babel">
 
+import config from '@/config.js';
 
 export default {
+
   created() {
-    this.$http.get('http://00.37518.com/index.php?m=Mobile&c=Index&a=GoodsCats').then(res=>{
+    let url = `${config.host}/index.php?m=Mobile&c=Index&a=GoodsCats`;
+    this.$http.get(url).then(res=>{
       console.log(res.body);
     });
   }

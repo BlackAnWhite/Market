@@ -59,7 +59,7 @@ export default new Router({
       component: shopcar
     },
     {
-      path: '/my',
+      path: '/my/:userId',
       name: 'my',
       component: my
     },
@@ -69,7 +69,7 @@ export default new Router({
       component: search
     },
     {
-      path: '/detail',
+      path: '/detail/:goodsId',
       name: 'detail',
       component: detail
     },

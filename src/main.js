@@ -10,7 +10,6 @@ import 'vue-ydui/dist/ydui.rem.css'
 Vue.use(YDUI);
 Vue.use(VueResource);
 
-const HOST = 'http://192.168.1.143:520/';
 
 /**
  * YDUI 可伸缩布局方案
