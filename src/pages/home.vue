@@ -32,6 +32,10 @@
     <!-- 底部导航 -->
     <navbar navbar= "1"></navbar>
     <!-- 底部导航 end-->
+    <!-- 返回顶部 -->
+    <yd-backtop style="bottom:1.5rem;"></yd-backtop>
+    <!-- 返回顶部 end -->
+
   </div>
 </template>
 
@@ -59,6 +63,9 @@ export default {
 </script>
 
 <style scoped>
+.yd-backtop{
+  bottom: 1.5rem !important;
+}
 .goods-sug-tit{
   width: 100%;
   height: .8rem;

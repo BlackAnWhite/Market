@@ -1,8 +1,8 @@
 <template>
 <yd-scrolltab>
-  <yd-scrolltab-panel :label="item.name" v-for="(item, key) in data" :key="key">
+  <yd-scrolltab-panel :label="item.catName" v-for="item,key in classData" :key="key">
     <div class="subClass">
-      <a href="#" v-for="(sub, key) in item.sub" :key="key">{{ sub }}</a>
+      <a href="#" v-for="(sub, key) in item.childs" :key="key">{{ sub.catName }}</a>
     </div>
   </yd-scrolltab-panel>
   <!-- ... -->
@@ -13,69 +13,13 @@
 export default {
   data(){
     return {
-      data:[
-        {
-          name:"家用电器",
-          sub:[
-            "电热水器",
-            "电热水器",
-            "电热水器",
-            "电热水器",
-            "电热水器"
-          ]
-        },
-        {
-          name:"电脑",
-          sub:[
-            "电热水器",
-            "电热水器",
-            "电热水器",
-            "电热水器",
-            "电热水器"
-          ]
-        },
-        {
-          name:"手机",
-          sub:[
-            "电热水器",
-            "电热水器",
-            "电热水器",
-            "电热水器",
-            "电热水器"
-          ]
-        },
-        {
-          name:"平板",
-          sub:[
-            "电热水器",
-            "电热水器",
-            "电热水器",
-            "电热水器",
-            "电热水器"
-          ]
-        },
-        {
-          name:"衣服鞋帽",
-          sub:[
-            "电热水器",
-            "电热水器",
-            "电热水器",
-            "电热水器",
-            "电热水器"
-          ]
-        },
-        {
-          name:"家用电器",
-          sub:[
-            "电热水器",
-            "电热水器",
-            "电热水器",
-            "电热水器",
-            "电热水器"
-          ]
-        }
-      ]
+      classData:[]
     }
+  },
+  props:{
+    classData: {
+      default: []
+    },
   }
 }
 </script>

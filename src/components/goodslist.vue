@@ -3,19 +3,18 @@
 
   <yd-list :theme="theme" slot="list">
 
-    <yd-list-item :href="'/detail?'+item.id" v-for="item, key in data" :key="key">
-      <!-- <router-link :to="'/detail?'+item.id"> -->
-      <img slot="img" :src="item.img">
-      <span class="goods-tit" slot="title">{{item.title}}</span>
-      <p class="goods-desc" slot="other">{{item.desc}}</p>
+    <yd-list-item type="link" :href="{name:'detail',params:{goodsId: item.goodsId}}" v-for="item, key in data" :key="key">
+      <!-- <router-link :to="{name:'detail',params:{goodsId: item.goodsId}}"> -->
+      <img slot="img" :src="item.goodsImg">
+      <span class="goods-tit" slot="title">{{item.goodsName}}</span>
+      <p class="goods-desc" slot="other">{{item.goodsSpec}}</p>
       <yd-list-other class="goods-price-box" slot="other">
         <div>
-          <span class="goods-price" v-if="item.price.length == 1">&yen;{{item.price[0]}}</span>
-          <span class="goods-price" v-if="item.price.length == 2">&yen;{{item.price[0]}}+<i>฿</i>{{item.price[1]}}</span>
-          <!-- <span class="list-price"><em>¥</em>{{item.marketprice}}</span>
-                        <span class="list-del-price">¥{{item.productprice}}</span> -->
+          <span class="goods-price">&yen;{{item.goodsPrice}}</span>
+          <!-- <span class="goods-price" v-if="item.price.length == 2">&yen;{{item.price[0]}}+<i>฿</i>{{item.price[1]}}</span> -->
+
         </div>
-        <div class="goods-sales">已售：{{item.sales}}</div>
+        <div class="goods-sales">已售：{{item.saleCount}}</div>
       </yd-list-other>
       <!-- </router-link> -->
     </yd-list-item>
@@ -54,30 +53,28 @@ export default {
     this.pageSize = 10 ;
     console.log(this.url);
     self.$http.get(`${this.url}${this.page}`).then( res => {
-      console.log(res);
-      // this.page++;
-      // let data = res.body.data.list;
-      // for (let i = 0; i < data.length; i++) {
-      //   data[i].img = config.host + data[i].img;
-      // };
+      // console.log(res.body);
+      this.page++;
+      let data = res.body;
+      for (let i = 0; i < data.length; i++) {
+        data[i].goodsImg = config.host + data[i].goodsImg;
+      };
+      this.data.push(...data);
       // console.log(data);
-      // this.data.push(...data);
     });
 
   },
   methods: {
     loadList() {
-      this.$http.get(`url${this.page}`, {
-        params: {
-          page: this.page,
-          pagesize: this.pageSize
-        }
-      }).then(function(response) {
-        const _list = response.body;
+      this.$http.get(`${this.url}${this.page}`).then(function(res) {
+        const _data = res.body;
+        // console.log(_data);
+        for (let i = 0; i < _data.length; i++) {
+          _data[i].goodsImg = config.host + _data[i].goodsImg;
+        };
+        this.data = [...this.data, ..._data];
 
-        this.list = [...this.list, ..._list];
-
-        if (_list.length < this.pageSize || this.page == 3) {
+        if (_data.length < this.pageSize) {
           /* 所有数据加载完毕 */
           this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.loadedDone');
           return;

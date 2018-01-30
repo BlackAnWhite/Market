@@ -1,8 +1,12 @@
 <template>
 <div class="container hasnav">
+  <!-- 返回顶部 -->
+  <yd-backtop style="bottom:1.5rem;"></yd-backtop>
+  <!-- 返回顶部 end -->
+
   <div class="top">
     <yd-navbar title="商品详情" bgcolor="#e8380d" color="#fff">
-      <section slot="left" @click="this.$router.go(-1)">
+      <section slot="left" @click="handleBack">
         <yd-navbar-back-icon color="#fff"></yd-navbar-back-icon>
       </section>
     </yd-navbar>
@@ -12,59 +16,35 @@
     <div class="slidebox">
 
       <yd-slider>
-        <yd-slider-item>
-          <img src="../assets/img-01.jpg">
-        </yd-slider-item>
-        <yd-slider-item>
-          <img src="../assets/img-02.jpg">
-        </yd-slider-item>
-        <yd-slider-item>
-          <img src="../assets/img-03.jpg">
-        </yd-slider-item>
-        <yd-slider-item>
-          <img src="../assets/img-04.jpg">
-        </yd-slider-item>
-        <yd-slider-item>
-          <img src="../assets/img-05.jpg">
+        <yd-slider-item v-for=" item,key in data.goodsAlbum" :key="key">
+          <img :src="item.goodsImg">
         </yd-slider-item>
       </yd-slider>
 
     </div>
     <div class="goodsinfo">
-      <div class="goods-tit">Meitu/美图 M6S 4G全网通美图手机指纹自拍美颜手机M6 自拍神器M8
+      <div class="goods-tit"> {{data.goodsName}}
       </div>
-      <div class="goods-desc">Meitu/美图 M6S 4G全网通美图手机指纹自拍美颜手机M6 自拍神器M8
+      <div class="goods-desc"> {{data.goodsSpec}}
       </div>
-      <div class="goods-price">￥229 <span class="goods-sales">评分: 4.8 &nbsp; 已售: 20</span> <span class="postage">快递：免邮</span>
+      <div class="goods-price">￥{{data.shopPrice}} <span class="goods-sales">评分: {{data.goodsScore}} &nbsp; 已售: {{data.saleCount}}</span> <span class="postage">快递：￥{{data.deliveryMoney}}</span>
       </div>
-
+      <p class="add" v-if="data.FreeMoney">本商品满{{data.FreeMoney}}元即享包邮</p>
     </div>
     <div class="table-box">
       <yd-tab active-color="#e8380d">
         <yd-tab-panel label="详情" active tabkey="1">
-          <div class="goods-info">
+          <div class="goods-info" v-html="data.goodsDesc">
             <!-- 这里面放详情 -->
-            <img src="../assets/img-01.jpg">
-            <img src="../assets/img-02.jpg">
-            <img src="../assets/img-03.jpg">
-            <img src="../assets/img-04.jpg">
-            <img src="../assets/img-05.jpg">
+            <!-- {{data.goodsDesc}} -->
           </div>
         </yd-tab-panel>
-        <yd-tab-panel label="评论" tabkey="2">
+        <yd-tab-panel :label="'评论('+data.couponsCount+')'" tabkey="2">
           <div class="comment">
-
-            <div class="comment-item">
-              <p class="com-mame">马丁·路德·金 <span>2017-01-11</span></p>
-              <p class="com-info">
-                我的小鱼你醒了，还认识早晨吗？昨夜你曾经说，愿夜幕永不开启，你的香腮边轻轻滑落的，是你的泪，还是我的泪？初吻吻别的那个季节，不是已经哭过了吗？我的指尖还记忆着，你慌乱的心跳，温润的体香里，那一绺长发飘飘......
-              </p>
-            </div>
-
-            <div class="comment-item">
-              <p class="com-mame">马丁·路德·金 <span>2017-01-11</span></p>
-              <p class="com-info">
-                我的小鱼你醒了，还认识早晨吗？昨夜你曾经说，愿夜幕永不开启，你的香腮边轻轻滑落的，是你的泪，还是我的泪？初吻吻别的那个季节，不是已经哭过了吗？我的指尖还记忆着，你慌乱的心跳，温润的体香里，那一绺长发飘飘......
+            <p v-if="!data.goods_appraises">暂无评论</p>
+            <div class="comment-item" v-for="item,key in data.goods_appraises" :key="key">
+              <p class="com-mame">{{item.loginName}}<span><yd-rate slot="left" v-model="item.goodsScore" size=".4rem" readonly></yd-rate></span></p>
+              <p class="com-info">{{item.content}} <span class="com-time">【{{item.createTime}}】</span>
               </p>
             </div>
 
@@ -78,7 +58,7 @@
       <div class="other-tit">
         本店其他商品
       </div>
-      <goodslist theme="3"></goodslist>
+      <goodslist v-if="url" :url="url" :theme="3"></goodslist>
     </div>
   </div>
 
@@ -86,28 +66,20 @@
   <div class="choose">
     <yd-popup v-model="show" position="bottom" height="60%">
       <div class="choose-top" slot="top">
-        <p class="choose-tit">Meitu/美图 M6S 4G全网通美图手机指纹自拍美颜手机M6 自拍神器M8</p>
-        <p class="choosed">已选：“<span>4g + 32g 白色 ， 2件 ， <i>￥9999</i></span>”</p>
+        <p class="choose-tit">{{data.goodsName}}</p>
+        <p class="choosed">已选：“<span>{{totalAttr}} ， {{spinner}}{{data.goodsUnit}} ， <i>￥{{totalPrice}}</i></span>”</p>
       </div>
       <div class="choose-cen">
         <div class="choose-type">
           <p class="choose-type-tit">选择规格：</p>
           <yd-radio-group v-model="radio" size="16" color="#e8380d">
-            <span><yd-radio val="1">4g + 32g 白色</yd-radio></span>
-            <span><yd-radio val="2">4g + 32g 黑色</yd-radio></span>
-            <span><yd-radio val="3">4g + 32g 绿色</yd-radio></span>
-            <span><yd-radio val="4">4g + 64g 白色</yd-radio></span>
-            <span><yd-radio val="5">4g + 64g 黑色</yd-radio></span>
-            <span><yd-radio val="6">4g + 64g 绿色</yd-radio></span>
-            <span><yd-radio val="7">6g + 64g 白色</yd-radio></span>
-            <span><yd-radio val="8">6g + 64g 黑色</yd-radio></span>
-            <span><yd-radio val="9">6g + 64g 绿色</yd-radio></span>
+            <span v-for="item,key in data.goodsAttrs" :key="key"><yd-radio :val="key">{{item.attrVal}}</yd-radio></span>
           </yd-radio-group>
         </div>
         <div class="choose-num">
           <p class="choose-type-tit">选择数量：</p>
-          <yd-spinner v-model="spinner" max="100"></yd-spinner>
-          <span>库存：100</span>
+          <yd-spinner v-model="spinner" :max="attrStock"></yd-spinner>
+          <span>库存：{{attrStock}}</span>
         </div>
 
 
@@ -138,13 +110,15 @@
 
   <div class="bot">
     <yd-flexbox>
-      <div class="collect">
-        <yd-icon name="star-outline" size=".4rem" color="#e8380d"></yd-icon>
+      <div class="collect" @click.native="collect">
+        <yd-icon :name="data.favoriteGoodsId == 0 ? 'star-outline' : 'star' " size=".4rem" color="#e8380d"></yd-icon>
         <p>收藏</p>
       </div>
       <div class="shop">
-        <yd-icon name="home-outline" size=".4rem" color="#e8380d"></yd-icon>
-        <p>店铺</p>
+        <router-link :to="{ name: 'shop', params: {shopId:data.shopId} }">
+          <yd-icon name="home-outline" size=".4rem" color="#e8380d"></yd-icon>
+          <p>店铺</p>
+        </router-link>
       </div>
       <yd-flexbox-item>
         <div class="inCar">
@@ -163,21 +137,70 @@
 </template>
 
 <script>
+import config from '@/config.js';
 export default {
   data() {
     return {
-      show: false,
-      radio: 1,
-      spinner: 1
+      rate: 0, //星评 整数
+      show: false, //显示加入购物车
+      radio: 1, //选了那个配置
+      spinner: 1, //数量
+      data: {},
+      url: ``,
+      totalPrice: '',
+      attrStock: '',
+      totalAttr: ''
     }
   },
-  created(){
-    const goodsId = this.$router.params.goodsId; 
+  created() {
+    let self = this,
+      userId = 40,
+      goodsId = this.$route.params.goodsId;
+
+    let url = `${config.host}index.php?m=Mobile&c=Goods&a=getGoodsDetails&goodsId=${goodsId}&userId=${userId}&p=`;
+    this.$http.get(url).then((res) => {
+      let data = res.body;
+      for (let i = 0; i < data.goodsAlbum.length; i++) {
+        data.goodsAlbum[i].goodsImg = config.host + data.goodsAlbum[i].goodsImg;
+      };
+      this.data = data;
+      this.url = `${config.host}index.php?m=Mobile&c=Shops&a=getShopGoodsList&shopId=${data.shopId}&p=`;
+      for (let i = 0; i < data.goodsAttrs.length; i++) {
+        if (data.goodsAttrs[i].isRecomm == 1) {
+          this.radio = i;
+          // console.log(this.radio);
+        }
+      };
+      // console.log(data);
+    }, (error) => {
+      // console.log(error);
+    });
+  },
+  watch: {
+    radio: function(now) {
+
+      this.attrStock = this.data.goodsAttrs[now].attrStock;
+      this.totalAttr = this.data.goodsAttrs[now].attrVal;
+      this.totalPrice = parseFloat(this.data.goodsAttrs[now].attrPrice) * this.spinner;
+      this.totalPrice = this.totalPrice.toFixed(1);
+      // console.log(now);
+    },
+    spinner: function(now) {
+      this.totalPrice = parseFloat(this.data.goodsAttrs[this.radio].attrPrice) * now;
+      this.totalPrice = this.totalPrice.toFixed(1);
+      // console.log(this.totalPrice);
+    }
   },
   methods: {
+    handleBack() {
+      this.$router.go(-1);
+    },
+    collect() {
+      alert('加入成功');
+    },
     inCar() {
-      this.$http.get('http://00.37518.com/index.php?m=Mobile&c=Cart&a=addToCartAjax&userId=40&goodsId=215&goodsCnt=3&goodsAttrId=33').then(res => {
-        console.log(res);
+      this.$http.get().then(res => {
+        // console.log(res);
       })
       alert('加入购物车成功');
     },
@@ -274,6 +297,35 @@ export default {
   margin-bottom: .2rem;
 }
 
+.goods-info {
+  width: 100%;
+  background: #ffffff;
+  margin-bottom: .2rem;
+  padding: .2rem 0;
+}
+
+.goods-info p {
+  width: 100%;
+  padding: 0 .2rem;
+}
+
+.goods-info li {
+  padding: 0 .2rem;
+}
+
+.goods-info img {
+  width: 100%;
+  display: block;
+}
+
+.goodsinfo p.add {
+  padding: 0 .2rem;
+  color: #666;
+  height: .5rem;
+  line-height: .5rem;
+  font-size: .24rem;
+}
+
 .goods-info img {
   width: 100%;
   display: block;
@@ -285,6 +337,8 @@ export default {
   font-weight: bold;
   line-height: .4rem;
   padding: .1rem .2rem;
+  max-height: 1rem;
+  overflow: hidden;
 }
 
 .goodsinfo .goods-desc {
@@ -292,6 +346,17 @@ export default {
   color: #888;
   line-height: .36rem;
   padding: 0 .2rem;
+  max-height: .72rem;
+  overflow: hidden;
+}
+
+.goodsinfo p {
+  height: .4rem;
+  line-height: .4rem;
+  white-space: nowrap;
+  overflow: hidden;
+  border-top: 1px solid #eee;
+  text-overflow: ellipsis;
 }
 
 .goods-price {
@@ -309,7 +374,7 @@ export default {
   color: #999;
 }
 
-.postage{
+.postage {
   margin-right: 1rem;
 }
 
@@ -319,6 +384,14 @@ export default {
   width: 100%;
   padding-bottom: .2rem;
   background: #f4f8fe;
+}
+
+.com-mame {
+  height: .6rem;
+  line-height: .6rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .comment-item {
@@ -338,8 +411,12 @@ export default {
 
 .comment-item p span {
   float: right;
+}
+
+.com-time {
   font-size: .24rem;
   color: #999;
+  float: none !important;
 }
 
 .comment-item .com-info {
@@ -407,7 +484,7 @@ export default {
   margin-left: .15rem;
 }
 
-.other .other-tit{
+.other .other-tit {
   width: 100%;
   height: .8rem;
   line-height: .8rem;

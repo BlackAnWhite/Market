@@ -9,7 +9,7 @@
   <yd-tabbar-item title="购物车" link="/shopcar" :active=' navbar == 3 ? true:false '>
     <yd-icon name="shopcart-outline" slot="icon" size="0.54rem"></yd-icon>
   </yd-tabbar-item>
-  <yd-tabbar-item title="个人中心" link="my" :active=' navbar == 4 ? true:false '>
+  <yd-tabbar-item title="个人中心" link="/my" :active=' navbar == 4 ? true:false '>
     <yd-icon name="ucenter-outline" slot="icon" size="0.54rem"></yd-icon>
   </yd-tabbar-item>
 </yd-tabbar>

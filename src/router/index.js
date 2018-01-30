@@ -39,7 +39,7 @@ export default new Router({
       component: home
     },
     {
-      path: '/shop',
+      path: '/shop/:shopId',
       name: 'shop',
       component: shop
     },
@@ -59,7 +59,7 @@ export default new Router({
       component: shopcar
     },
     {
-      path: '/my/:userId',
+      path: '/my',
       name: 'my',
       component: my
     },

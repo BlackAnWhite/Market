@@ -5,7 +5,7 @@
   </nav>
   <!-- <section class="main"> -->
     <section class="goodsClass">
-      <scrollTab></scrollTab>
+      <scrollTab :classData="data"></scrollTab>
     </section>
   <!-- </section> -->
   <navbar navbar= "2" ></navbar>
@@ -17,11 +17,17 @@
 import config from '@/config.js';
 
 export default {
+  data(){
+    return{
+      data:[]
+    }
+  },
 
   created() {
-    let url = `${config.host}/index.php?m=Mobile&c=Index&a=GoodsCats`;
+    let url = `${config.host}index.php?m=Mobile&c=Index&a=GoodsCats`;
     this.$http.get(url).then(res=>{
-      console.log(res.body);
+      this.data=res.body;
+      // console.log(res.body);
     });
   }
 }
