@@ -4,20 +4,18 @@
   <yd-list :theme="theme" slot="list">
 
     <yd-list-item type="link" :href="{name:'detail',params:{goodsId: item.goodsId}}" v-for="item, key in data" :key="key">
-      <!-- <router-link :to="{name:'detail',params:{goodsId: item.goodsId}}"> -->
       <img slot="img" :src="item.goodsImg">
       <span class="goods-tit" slot="title">{{item.goodsName}}</span>
       <p class="goods-desc" slot="other">{{item.goodsSpec}}</p>
       <yd-list-other class="goods-price-box" slot="other">
         <div>
           <span class="goods-price">&yen;{{item.goodsPrice}}</span>
-          <!-- <span class="goods-price" v-if="item.price.length == 2">&yen;{{item.price[0]}}+<i>฿</i>{{item.price[1]}}</span> -->
-
         </div>
         <div class="goods-sales">已售：{{item.saleCount}}</div>
       </yd-list-other>
-      <!-- </router-link> -->
     </yd-list-item>
+
+    <p class="isShow" v-if="isShow">没有搜索到哎~~换个关键词试试吧</p>
 
   </yd-list>
 
@@ -40,10 +38,14 @@ export default {
     },
     url: {
       default:''
+    },
+    isSearch: {
+      default:''
     }
   },
   data() {
     return {
+      isShow:false,
       data:[]
     }
   },
@@ -60,6 +62,9 @@ export default {
         data[i].goodsImg = config.host + data[i].goodsImg;
       };
       this.data.push(...data);
+      if(data.length == 0 && this.isSearch == 1){
+        this.isShow = true;
+      }
       // console.log(data);
     });
 
@@ -95,7 +100,14 @@ export default {
   font-size: .28rem;
   font-weight: normal;
 }
-
+.isShow{
+  line-height: .5rem;
+  color: #999;
+  font-size: .24rem;
+  text-align: center;
+  padding: 0 .2rem;
+  margin-top: .2rem;
+}
 .goods-desc {
   width: 100%;
   height: 0.6rem;

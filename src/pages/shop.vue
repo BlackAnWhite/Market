@@ -1,6 +1,10 @@
 <template >
   <div class="container">
 
+    <!-- 返回顶部 -->
+    <yd-backtop style="bottom:1.5rem;"></yd-backtop>
+    <!-- 返回顶部 end -->
+
     <div class="top">
       <yd-navbar title="店铺主页" bgcolor="#d94927" color="#fff">
         <section slot="left" @click="handleBack">
@@ -10,7 +14,7 @@
     </div>
 
     <div class="cen">
-      <div class="main-pic" style="background-image: url('../assets/img-12.jpg')">
+      <div class="main-pic" :style="{backgroundImage: data.shopBanner}">
         <!-- <yd-slider style="height:4rem;">
           <yd-slider-item>
             <a href="#">
@@ -21,16 +25,17 @@
       </div>
       <!-- 联系方式 -->
       <div class="contact">
-        <p class="shop-name">测试店铺111</p>
-        <p class="shop-area">所在地区：<span>广东省广州市天河区</span></p>
-        <p class="shop-tel">联系方式：<span>69458636</span></p>
+        <p class="shop-name">{{data.shopName}}</p>
+        <p class="shop-area">所在地区：<span>{{data.shopAddress}}</span></p>
+        <p class="shop-tel">联系方式：<span>{{data.shopTel}}</span></p>
+        <p class="shop-tel" v-if="data.qqNo !== '' ">Q Q客服：<span>{{data.qqNo}}</span></p>
       </div>
 
       <div class="goods-list">
         <p class="title">
-          店内所有商品
+          本店所有商品
         </p>
-        <goodslist theme="3"></goodslist>
+        <goodslist v-if="url" :url="url" :theme="3"></goodslist>
       </div>
     </div>
 
@@ -39,7 +44,27 @@
 </template>
 
 <script>
+import config from '@/config.js';
 export default {
+  data(){
+    return{
+      url:``,
+      data:{}
+    }
+  },
+  created(){
+    let shopId = this.$route.params.shopId;
+    this.url = `${config.host}index.php?m=Mobile&c=Shops&a=getShopGoodsList&shopId=${shopId}&p=`;
+    let shopUrl = `${config.host}index.php?m=Mobile&c=Shops&a=getShopInfo&shopId=${shopId}`;
+    this.$http.get(shopUrl).then((res)=>{
+      let data = res.body;
+      data.shopBanner = `url(${config.host}${data.shopBanner})`;
+      this.data = data;
+      console.log(this.data);
+    },(error)=>{
+      //错误回调
+    })
+  },
   methods: {
     handleBack() {
       this.$router.go(-1);
@@ -63,6 +88,9 @@ export default {
   width: 100%;
   background: #ffffff;
   padding: 0.1rem .2rem;
+}
+.contact p{
+  border-bottom: 1px solid #eee;
 }
 .contact .shop-name{
   height: .8rem;

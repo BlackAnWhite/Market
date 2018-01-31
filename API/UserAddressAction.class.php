@@ -22,17 +22,18 @@ class UserAddressAction extends BaseAction{
 		$USER = I("userId");
 		$m = D('Mobile/UserAddress');
     	$rs = $m->queryByList($USER);
-    	// var_dump($rs['root']);
+    	// var_dump($rs['root']); 
     	$this->ajaxReturn($rs['root']);
 	}
 
 
 	/**
 	 * 新增/修改操作
-	 * http://00.37518.com/index.php?m=Mobile&c=UserAddress&a=optionUserAddress&userId=40&userName=111&userPhone=13585965623&userTel=222&address=111&isDefault=0&id=2
+	 * http://00.37518.com/index.php?m=Mobile&c=UserAddress&a=optionUserAddress&userId=40&userName=111&userPhone=13585965623&userTel=222&areaId1=&areaId2=&areaId3=&address=11&isDefault=0&id=2
+	 * @param areaId1 areaId2 areaId3 省 市 县  address 详细地址
 	 * @param id 修改的地址ID （增加操作忽略此参数）
 	 * @param isDefault 默认地址为 1 不默认为 0
-	 * @param userId userName userPhone address isDefault 必填  userTel 没有可忽略
+	 * @param userId userName userPhone isDefault 必填  userTel 没有可忽略
 	 * @return status 1 成功 -1 失败
 	 */
 	public function optionUserAddress(){

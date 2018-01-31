@@ -1,27 +1,39 @@
 <template>
   <div class="search">
-    <yd-search :placeholder="placeholder" v-model="value1" :on-submit="submitHandler" :on-cancel="clearValue"></yd-search>
-    <goodslist theme="4"></goodslist>
+    <yd-search :placeholder="placeholder" v-model="value" :on-submit="submitHandler" :on-cancel="clearValue"></yd-search>
+    <goodslist :isSearch="1" :theme="4" v-if="url" :url="url"></goodslist>
+
   </div>
 </template>
 
 <script type="text/babel">
+import config from '@/config.js';
 export default {
   data() {
     return {
       placeholder: "iphone X",
-      value1: ''
+      value: '',
+      url: ''
     }
+  },
+  created(){
+    this.value = this.$route.params.keyWord;
+    let goodsCatId2 = this.$route.params.key;
+    this.url = `${config.host}index.php?m=Mobile&c=Index&a=goodsHot&goodsCatId2=${goodsCatId2}&p=`;
   },
   methods: {
     submitHandler(value) {
-      this.$dialog.toast({
-        mes: `搜索：${value}`
-      });
+      if(value == ''){
+        this.$dialog.toast({
+          mes: `请输入搜索关键词`
+        });
+      }else{
+        this.url = `${config.host}index.php?m=Mobile&c=Index&a=goodsHot&goodsName=${value}&p=`;
+      }
     },
     clearValue() {
-      this.value1="";
-      this.$router.go(-1);      
+      this.value="";
+      this.$router.go(-1);
     }
   }
 }
