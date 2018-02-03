@@ -115,7 +115,7 @@
         <p>收藏</p>
       </div>
       <div class="shop">
-        <router-link :to="{ name: 'shop', params: {shopId:data.shopId} }">
+        <router-link :to="{ name: 'shop', params: { shopId : data.shopId} }">
           <yd-icon name="home-outline" size=".4rem" color="#e8380d"></yd-icon>
           <p>店铺</p>
         </router-link>
@@ -148,7 +148,7 @@ export default {
       data: {},
       url: ``,
       totalPrice: '',
-      attrStock: '',
+      attrStock: 0,
       totalAttr: ''
     }
   },
@@ -168,7 +168,7 @@ export default {
       for (let i = 0; i < data.goodsAttrs.length; i++) {
         if (data.goodsAttrs[i].isRecomm == 1) {
           this.radio = i;
-          // console.log(this.radio);
+          // console.log(typeof(this.radio));
         }
       };
       // console.log(data);
@@ -182,12 +182,12 @@ export default {
       this.attrStock = this.data.goodsAttrs[now].attrStock;
       this.totalAttr = this.data.goodsAttrs[now].attrVal;
       this.totalPrice = parseFloat(this.data.goodsAttrs[now].attrPrice) * this.spinner;
-      this.totalPrice = this.totalPrice.toFixed(1);
+      this.totalPrice = this.totalPrice.toFixed(2);
       // console.log(now);
     },
     spinner: function(now) {
       this.totalPrice = parseFloat(this.data.goodsAttrs[this.radio].attrPrice) * now;
-      this.totalPrice = this.totalPrice.toFixed(1);
+      this.totalPrice = this.totalPrice.toFixed(2);
       // console.log(this.totalPrice);
     }
   },
@@ -199,10 +199,30 @@ export default {
       alert('加入成功');
     },
     inCar() {
-      this.$http.get().then(res => {
-        // console.log(res);
+      let userId = 40,
+        goodsId = parseInt(this.data.goodsId),
+        goodsCnt = this.spinner,
+        goodsAttrId = parseInt(this.data.goodsAttrs[this.radio].id);
+        // console.log(userId, goodsId, goodsCnt, goodsAttrId);
+      let url = `${config.host}index.php?m=Mobile&c=Cart&a=addToCartAjax`;
+      this.$http.post(url, {
+        userId: userId,
+        goodsId: goodsId,
+        goodsCnt: goodsCnt,
+        goodsAttrId: goodsAttrId
+      }, {
+        emulateJSON: true
+      }).then((res) => {
+        if (res.body.status === 1) {
+          this.$dialog.toast({
+            mes: '加入购物车成功!',
+            timeout: 1500
+          });
+          this.show = false;
+        }
+      }, (err) => {
+        console.log(err);
       })
-      alert('加入购物车成功');
     },
     buyNow() {
       alert('购买成功');
@@ -417,6 +437,7 @@ export default {
   font-size: .24rem;
   color: #999;
   float: none !important;
+  display: inline-block;
 }
 
 .comment-item .com-info {

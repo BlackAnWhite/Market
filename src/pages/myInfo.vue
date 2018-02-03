@@ -13,14 +13,14 @@
     <yd-cell-group>
       <yd-cell-item>
         <span slot="left">绑定手机号：</span>
-        <yd-input slot="right" v-model="input1" required regex="^1[3|4|5|6|7|8|9][0-9]{9}$" placeholder="请输入手机号码" ref="input1"></yd-input>
+        <yd-input slot="right" v-model="input" required regex="^1[3|4|5|6|7|8|9][0-9]{9}$" placeholder="请输入手机号码" ref="input"></yd-input>
       </yd-cell-item>
 
       <yd-cell-item>
-        <input class="color" type="text" slot="right" placeholder="请输入验证码">
+        <yd-input class="color" v-model="code" slot="right" placeholder="请输入验证码"></yd-input>
 
         <!-- ↓↓关键代码是这里↓↓ -->
-        <yd-sendcode slot="right" v-model="start" second="2" @click.native="sendCode" type="warning" storage-key="dashuaibi"></yd-sendcode>
+        <yd-sendcode slot="right" v-model="start" second="90" @click.native="sendCode" type="warning" storage-key="dashuaibi"></yd-sendcode>
         <!-- ↑↑关键代码是这里↑↑ -->
 
       </yd-cell-item>
@@ -37,10 +37,12 @@
 </template>
 
 <script>
+import config from '@/config.js';
 export default {
   data() {
     return {
-      input1: '',
+      input: '',
+      code:'',
       start: false
     }
   },
@@ -49,7 +51,7 @@ export default {
       this.$router.go(-1);
     },
     sendCode() {
-      const input = this.$refs.input1;
+      const input = this.$refs.input;
 
       // this.result = `{<br />  valid：${input.valid}，<br />  errorMes：'${input.errorMsg}'，<br />  errorCode：'${input.errorCode}'<br />}`;
       // console.log(this.result);
@@ -82,11 +84,10 @@ export default {
       }
 
     },
-    clickHander(){
-      this.$dialog.toast({
-        mes: '已提交',
-        timeout: 1500
-      });
+    clickHander() {
+      // 点击提交按钮执行
+      let userId = 40;
+
     }
   }
 }

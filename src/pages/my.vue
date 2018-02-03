@@ -5,16 +5,16 @@
   </div>
   <div class="cen">
     <div class="centop">
-      <!-- J资本信息盒子 -->
+      <!-- 基本信息盒子 -->
       <div class="cenbg">
         <yd-flexbox>
-          <div class="head-pic autoimg" v-bind:style="{ backgroundImage : 'url(' + headPic + ')' }"></div>
+          <div class="head-pic autoimg" v-bind:style="{ backgroundImage : 'url(' + data.userPhoto + ')' }"></div>
           <yd-flexbox-item>
-            <p class="name">莺莺燕燕雁雁鹰鹰</p>
-            <p class="id">ID: 2018520</p>
+            <p class="name">{{data.loginName}}</p>
+            <p class="id">ID: {{data.loginId}}</p>
           </yd-flexbox-item>
           <div class="qrcode">
-            <router-link to="/shareQR">
+            <router-link :to="{name:'shareQR', query: { userRqcode: data.userRqcode,loginSecret: data.loginSecret}}">
               <div class="icon-qrcode">
                 <img src="../assets/icon-qrcode.png" alt="">
               </div>
@@ -29,14 +29,14 @@
         <yd-flexbox>
           <yd-flexbox-item>
             <router-link to="/myPoint">
-              <p>100</p>
+              <p>{{data.userMoney}}</p>
               <p><span>积分</span></p>
             </router-link>
           </yd-flexbox-item>
           <yd-flexbox-item>
             <router-link to="/myMoney">
-              <p>99999</p>
-              <p><span>电子券</span></p>
+              <p>{{data.userScore}}</p>
+              <p><span>银子(两)</span></p>
             </router-link>
           </yd-flexbox-item>
         </yd-flexbox>
@@ -69,7 +69,7 @@
             <span slot="left">收货地址</span>
             <span slot="right">管理收货地址</span>
         </yd-cell-item>
-        <yd-cell-item arrow type="link" href="contact">
+        <yd-cell-item arrow type="link" href="/contact">
             <span slot="left">客服咨询</span>
             <!-- <span slot="right">666-6666666</span> -->
         </yd-cell-item>
@@ -88,18 +88,21 @@ import config from '@/config.js';
 export default {
   data() {
     return {
-      headPic: ''
+      codeUrl:'',
+      loginSecret:'',
+      data:[]
     }
   },
   created: function() {
     // `this` 指向 vm 实例
-    let self = this;
-    this.$http.get('api/navIndex?id=666').then(data => {
-      let res = data.body.data;
-      // console.log(res);
-      // console.log(config.host);
-      self.headPic = config.host + res['headPic'];
-      self.keyWords = res['keyWords'];
+    let userId = 72;
+    let url=`${config.host}index.php?m=Mobile&c=Users&a=getUserById&userId=${userId}`
+    this.$http.get(url).then((res) => {
+      let data = res.body;
+      data.userPhoto = config.host + data.userPhoto;
+      this.userRqcode = data.userRqcode;
+      this.loginSecret = data.loginSecret;
+      this.data  = data ;
     })
   }
 }

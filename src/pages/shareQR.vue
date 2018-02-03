@@ -10,12 +10,12 @@
   <div class="main">
     <div class="main-top">
       <div class="code-box">
-        <img src="../assets/erweima.png" alt="">
+        <img :src="userRqcode" alt="">
       </div>
       <p>微信扫一扫</p>
       <div class="main-text">
         <p>邀请您加入分领商城</p>
-        <p>邀请码：Qcsk844</p>
+        <p>邀请码：{{loginSecret}}</p>
       </div>
     </div>
     <div class="main-bot">
@@ -29,6 +29,18 @@
 
 <script>
 export default {
+  data(){
+    return{
+      userRqcode:'',
+      loginSecret:''
+    }
+  },
+  created(){
+    let data = this.$route.query;
+        this.userRqcode = this.$route.query.userRqcode;
+        this.loginSecret = this.$route.query.loginSecret;
+
+  },
   methods : {
     handleBack () {
       this.$router.go(-1);

@@ -60,7 +60,7 @@ export default {
       let data = res.body;
       data.shopBanner = `url(${config.host}${data.shopBanner})`;
       this.data = data;
-      console.log(this.data);
+      // console.log(this.data);
     },(error)=>{
       //错误回调
     })

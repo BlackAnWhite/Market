@@ -9,107 +9,25 @@
   <div class="cen">
     <yd-checklist v-model="checklist" :label="false" color="#e8380d">
       <!-- 循环shop -->
-      <div class="shop">
+      <div class="shop" v-for="item,key in data" :key="key">
         <div class="shop-tit">
-          华为官方旗舰店 选中值：{{checklist}}
+          {{item.shopName}}
         </div>
-        <yd-checklist-item val="1">
-          <yd-flexbox style="padding: 10px 0;">
-            <img src="../assets/img-11.jpg" class="img">
-            <yd-flexbox-item align="top" class="goods-right">
-              <p class="goods-tit">Green Orange/青橙 VOGA 55909 激光投影手机全网通4G</p>
-              <div class="goods-type">
-                <span>草木绿</span> <span>64g</span> <span>官方标配</span>
-              </div>
-              <p style="color:#e8380d;"><span>￥20</span>
-                <yd-spinner class="goods-num" v-model="spinner" max="100"></yd-spinner>
-              </p>
-            </yd-flexbox-item>
-          </yd-flexbox>
-        </yd-checklist-item>
-        <yd-checklist-item val="2">
-          <yd-flexbox style="padding: 10px 0;">
-            <img src="../assets/img-15.jpg" class="img">
-            <yd-flexbox-item align="top" class="goods-right">
-              <p class="goods-tit">Green Orange/青橙 VOGA 55909 激光投影手机全网通4G</p>
-              <div class="goods-type">
-                <span>草木绿</span> <span>64g</span> <span>官方标配</span>
-              </div>
-              <p style="color:#e8380d;"><span>￥20</span>
-                <yd-spinner class="goods-num" v-model="spinner" max="100"></yd-spinner>
-              </p>
-            </yd-flexbox-item>
-          </yd-flexbox>
-        </yd-checklist-item>
-      </div>
-
-      <!-- 循环shop -->
-      <div class="shop">
-        <div class="shop-tit">
-          华为官方旗舰店 选中值：{{checklist}}
-        </div>
-        <yd-checklist-item val="3">
-          <yd-flexbox style="padding: 10px 0;">
-            <img src="../assets/img-01.jpg" class="img">
-            <yd-flexbox-item align="top" class="goods-right">
-              <p class="goods-tit">Green Orange/青橙 VOGA 55909 激光投影手机全网通4G</p>
-              <div class="goods-type">
-                <span>草木绿</span> <span>64g</span> <span>官方标配</span>
-              </div>
-              <p style="color:#e8380d;"><span>￥20</span>
-                <yd-spinner class="goods-num" v-model="spinner" max="100"></yd-spinner>
-              </p>
-            </yd-flexbox-item>
-          </yd-flexbox>
-        </yd-checklist-item>
-        <yd-checklist-item val="4">
-          <yd-flexbox style="padding: 10px 0;">
-            <img src="../assets/img-17.jpg" class="img">
-            <yd-flexbox-item align="top" class="goods-right">
-              <p class="goods-tit">Green Orange/青橙 VOGA 55909 激光投影手机全网通4G</p>
-              <div class="goods-type">
-                <span>草木绿</span> <span>64g</span> <span>官方标配</span>
-              </div>
-              <p style="color:#e8380d;"><span>￥20</span>
-                <yd-spinner class="goods-num" v-model="spinner" max="100"></yd-spinner>
-              </p>
-            </yd-flexbox-item>
-          </yd-flexbox>
-        </yd-checklist-item>
-      </div>
-
-      <!-- 循环shop -->
-      <div class="shop">
-        <div class="shop-tit">
-          华为官方旗舰店 选中值：{{checklist}}
-        </div>
-        <yd-checklist-item val="5">
-          <yd-flexbox style="padding: 10px 0;">
-            <img src="../assets/img-21.jpg" class="img">
-            <yd-flexbox-item align="top" class="goods-right">
-              <p class="goods-tit">Green Orange/青橙 VOGA 55909 激光投影手机全网通4G</p>
-              <div class="goods-type">
-                <span>草木绿</span> <span>64g</span> <span>官方标配</span>
-              </div>
-              <p style="color:#e8380d;"><span>￥20</span>
-                <yd-spinner class="goods-num" v-model="spinner" max="100"></yd-spinner>
-              </p>
-            </yd-flexbox-item>
-          </yd-flexbox>
-        </yd-checklist-item>
-        <yd-checklist-item val="6">
-          <yd-flexbox style="padding: 10px 0;">
-            <img src="../assets/img-19.jpg" class="img">
-            <yd-flexbox-item align="top" class="goods-right">
-              <p class="goods-tit">Green Orange/青橙 VOGA 55909 激光投影手机全网通4G</p>
-              <div class="goods-type">
-                <span>草木绿</span> <span>64g</span> <span>官方标配</span>
-              </div>
-              <p style="color:#e8380d;"><span>￥20</span>
-                <yd-spinner class="goods-num" v-model="spinner" max="100"></yd-spinner>
-              </p>
-            </yd-flexbox-item>
-          </yd-flexbox>
+        <yd-checklist-item :val="sub.cartId" v-for="sub,index in item.shopgoods" :key="index">
+          <router-link :to="{ name: 'detail', params: { goodsId:sub.goodsId } }">
+            <yd-flexbox style="padding: 10px 0;">
+              <img :src="sub.goodsThums" class="img">
+              <yd-flexbox-item align="top" class="goods-right">
+                <p class="goods-tit">{{sub.goodsName}}</p>
+                <div class="goods-type">
+                  <span>{{sub.attrVal}}</span>
+                </div>
+                <p style="color:#e8380d;"><span>￥{{sub.goodsPrice}}</span>
+                  <span class="goods-num">× {{sub.cnt}}</span>
+                </p>
+              </yd-flexbox-item>
+            </yd-flexbox>
+          </router-link>
         </yd-checklist-item>
       </div>
 
@@ -119,10 +37,10 @@
 
   <div class="payBtnBox" slot="bottom">
     <yd-flexbox>
-      <div class="del-btn">
+      <div class="del-btn" @click="delCart">
         <yd-icon size=".4rem" color="#b2b2b2" name="delete"></yd-icon>
       </div>
-      <yd-flexbox-item class="sum">总计：<span>￥0</span></yd-flexbox-item>
+      <yd-flexbox-item class="sum">总计：<span>￥{{sumPrice}}</span></yd-flexbox-item>
       <div class="pay-btn">结 算</div>
     </yd-flexbox>
   </div>
@@ -134,11 +52,99 @@
 </template>
 
 <script type="text/babel">
+import config from "@/config.js";
 export default {
   data() {
     return {
-      spinner: 0,
-      checklist: []
+      sumPrice: 0,
+      spinner: 1,
+      checklist: [],
+      data: []
+    }
+  },
+  watch: {
+    checklist(now) {
+      this.sumPrice = 0;
+      for (let i = 0; i < now.length; i++) {
+        for (let j = 0; j < this.data.length; j++) {
+          for (let k = 0; k < this.data[j].shopgoods.length; k++) {
+            if (now[i] == this.data[j].shopgoods[k].cartId) {
+              let price = parseFloat(this.data[j].shopgoods[k].goodsPrice) * parseInt(this.data[j].shopgoods[k].cnt);
+              // console.log(price);
+              this.sumPrice = (parseFloat(this.sumPrice) + price).toFixed(2);
+              break;
+            }
+          }
+        }
+      }
+    }
+  },
+  created() {
+    let userId = 40,
+      url = `${config.host}index.php?m=Mobile&c=Cart&a=getCartInfo&userId=${userId}`;
+    this.$http.get(url).then((res) => {
+      let data = res.body;
+      for (let i = 0; i < data.length; i++) {
+        for (let j = 0; j < data[i].shopgoods.length; j++) {
+          data[i].shopgoods[j].goodsThums = config.host + data[i].shopgoods[j].goodsThums;
+          let goodsPriceSum = (data[i].shopgoods[j].goodsPrice * data[i].shopgoods[j].cnt).toFixed(2);
+        };
+      };
+      // console.log(res.body);
+      this.data = data;
+    })
+  },
+  methods: {
+    delCart() {
+      let checked = this.checklist,
+          url = `${config.host}index.php?m=Mobile&c=Cart&a=delCartGoods`,
+          userId = 40;
+
+      let i,
+          j,
+          k,
+          data = {
+                    userId:userId,
+                    deleteInfo:[]
+                  },
+          lists = this.data;
+          // newList = this.data;
+      for(i=0;i<checked.length;i++){
+        for(j=0;j<lists.length;j++){
+          for(k=0;k<lists[j].shopgoods.length;k++){
+            if(parseInt(checked[i]) == parseInt(lists[j].shopgoods[k].cartId)){
+              data.deleteInfo.push({
+                goodsId:lists[j].shopgoods[k].goodsId,
+                goodsAttrId:lists[j].shopgoods[k].goodsAttrId
+              });
+              // mewList[j].shopgoods.splice(k,1);
+            }
+          }
+        }
+      };
+
+      // console.log(data);
+
+      this.$http.post(url,data, {
+        emulateJSON: true
+      }).then((res) => {
+        console.log(res.body);
+        if(res.body.status==1){
+          this.$dialog.toast({
+            mes: '删除成功!',
+            timeout: 1500
+          });
+          // this.data = mewList;
+          window.location.reload();
+        } else{
+          this.$dialog.toast({
+            mes: '删除失败!',
+            timeout: 1500
+          });
+        }
+      }, (err) => {
+        // console.log(err);
+      })
     }
   }
 }

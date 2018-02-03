@@ -14,7 +14,7 @@
 
       <yd-cell-item>
         <span slot="left">绑定邀请码：</span>
-        <yd-input slot="right" v-model="input2" regex="mobile" placeholder="请输入邀请码" ref="input1"></yd-input>
+        <yd-input slot="right" v-model="input" placeholder="请输入邀请码" required :show-success-icon="false" :show-error-icon="false" ref="input"></yd-input>
       </yd-cell-item>
 
     </yd-cell-group>
@@ -29,30 +29,62 @@
 </template>
 
 <script>
+import config from '@/config.js';
 export default {
   data() {
     return {
-      input2: '',
+      input: '',
     }
   },
   methods: {
     handleBack() {
       this.$router.go(-1);
     },
-    clickHander(){
-      this.$dialog.toast({
-        mes: '已提交',
-        timeout: 1500
-      });
+    clickHander() {
+      let userId = 40;
+      let url = `${config.host}index.php?m=Mobile&c=Users&a=toRegistCode`;
+      if (this.$refs.input.valid) {
+        this.$http.post(url, {
+          userId: userId,
+          loginSecret: this.input
+        }, {
+          emulateJSON: true
+        }).then((res) => {
+
+          console.log(res);
+          if (res.body.status === 1) {
+            this.$dialog.toast({
+              mes: '绑定成功!',
+              timeout: 1500
+            });
+          } else {
+            this.$dialog.toast({
+              icon: 'error',
+              mes: res.body.msg,
+              timeout: 1500
+            });
+          }
+        }, (err) => {
+          console.log(err);
+        });
+      } else{
+        this.$dialog.toast({
+          icon: 'error',
+          mes: '邀请码不能为空',
+          timeout: 1500
+        });
+      }
+
     }
   }
 }
 </script>
 
 <style scoped>
-.cen{
+.cen {
   padding-top: .2rem;
 }
+
 .yd-cell::after {
   border: 0 !important;
 }
