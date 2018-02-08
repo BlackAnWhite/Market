@@ -44,6 +44,7 @@ import config from '@/config.js';
 export default {
   data(){
     return {
+      userId: 40,
       specials:[],
       url:`${config.host}index.php?m=Mobile&c=Index&a=goodsHot&p=`,
     }

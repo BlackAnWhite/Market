@@ -110,7 +110,7 @@
 
   <div class="bot">
     <yd-flexbox>
-      <div class="collect" @click.native="collect">
+      <div class="collect" @click="collect">
         <yd-icon :name="data.favoriteGoodsId == 0 ? 'star-outline' : 'star' " size=".4rem" color="#e8380d"></yd-icon>
         <p>收藏</p>
       </div>
@@ -147,9 +147,9 @@ export default {
       spinner: 1, //数量
       data: {},
       url: ``,
-      totalPrice: '',
-      attrStock: 0,
-      totalAttr: ''
+      totalPrice: '', //总价
+      attrStock: 0, //规格价格
+      totalAttr: '' //规格
     }
   },
   created() {
@@ -163,14 +163,19 @@ export default {
       for (let i = 0; i < data.goodsAlbum.length; i++) {
         data.goodsAlbum[i].goodsImg = config.host + data.goodsAlbum[i].goodsImg;
       };
-      this.data = data;
-      this.url = `${config.host}index.php?m=Mobile&c=Shops&a=getShopGoodsList&shopId=${data.shopId}&p=`;
-      for (let i = 0; i < data.goodsAttrs.length; i++) {
-        if (data.goodsAttrs[i].isRecomm == 1) {
-          this.radio = i;
+      data.goodsImg = config.host + data.goodsImg;
+      let firstImg = data.goodsImg;
+      let imgBox = data.goodsAlbum;
+      imgBox.unshift({"goodsImg":firstImg});
+      // console.log(data);
+      for (let j = 0; j < data.goodsAttrs.length; j++) {
+        if (data.goodsAttrs[j].isRecomm == 1) {
+          this.radio = j;
           // console.log(typeof(this.radio));
         }
       };
+      this.data = data;
+      this.url = `${config.host}index.php?m=Mobile&c=Shops&a=getShopGoodsList&shopId=${data.shopId}&p=`;
       // console.log(data);
     }, (error) => {
       // console.log(error);
@@ -189,6 +194,10 @@ export default {
       this.totalPrice = parseFloat(this.data.goodsAttrs[this.radio].attrPrice) * now;
       this.totalPrice = this.totalPrice.toFixed(2);
       // console.log(this.totalPrice);
+    },
+    '$route' (to, from) {
+      this.$router.go(0);
+      // $route.push({path:`${to.fullPath}`});
     }
   },
   methods: {
@@ -196,14 +205,38 @@ export default {
       this.$router.go(-1);
     },
     collect() {
-      alert('加入成功');
+      let userId = 40,
+        goodsId = this.data.goodsId,
+        url = `${config.host}index.php?m=Mobile&c=Goods&a=favoriteGoods&goodsId=${goodsId}&userId=${userId}`;
+      if (this.data.favoriteGoodsId == 1) {
+        this.$dialog.toast({
+          mes: '已经收藏过啦!',
+          timeout: 1500
+        });
+      } else {
+        this.$http.get(url).then((res) => {
+          console.log(res);
+          if(res.body.status == 1){
+            this.$dialog.toast({
+              mes: '收藏成功!',
+              timeout: 1500
+            });
+          } else{
+            this.$dialog.toast({
+              mes: '网络异常，请重试!',
+              timeout: 1500
+            });
+          }
+        })
+      };
+
     },
     inCar() {
       let userId = 40,
         goodsId = parseInt(this.data.goodsId),
         goodsCnt = this.spinner,
         goodsAttrId = parseInt(this.data.goodsAttrs[this.radio].id);
-        // console.log(userId, goodsId, goodsCnt, goodsAttrId);
+      // console.log(userId, goodsId, goodsCnt, goodsAttrId);
       let url = `${config.host}index.php?m=Mobile&c=Cart&a=addToCartAjax`;
       this.$http.post(url, {
         userId: userId,
@@ -232,6 +265,7 @@ export default {
 </script>
 
 <style scoped>
+
 .slidebox {
   width: 100%;
   height: 7.5rem;
@@ -341,8 +375,8 @@ export default {
 .goodsinfo p.add {
   padding: 0 .2rem;
   color: #666;
-  height: .5rem;
-  line-height: .5rem;
+  height: .8rem;
+  line-height: .8rem;
   font-size: .24rem;
 }
 

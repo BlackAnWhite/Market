@@ -10,7 +10,8 @@
     </div>
 
     <div class="cen">
-      <div class="item">
+
+      <div class="item" v-for='item,key in data' :key='key'>
         <yd-flexbox style="align-items:flex-start">
           <div class="logo">
             <div class="logo-box">
@@ -20,39 +21,16 @@
           <yd-flexbox-item>
             <div class="message">
               <div class="msg-tit">
-                商城平台招募商家入驻啦！！！
+                {{item.articleTitle}}
               </div>
-              <div class="msg-body">
-                我的小鱼你醒了，还认识早晨吗？昨夜你曾经说，愿夜幕永不开启，你的香腮边轻轻滑落的，是你的泪，还是我的泪？初吻吻别的那个季节，不是已经哭过了吗......
-              </div>
-              <p class="msg-time">2018-01-12 19:56</p>
+              <div class="msg-body" v-html="item.articleContent"></div>
+              <p class="msg-time">{{item.createTime}}</p>
             </div>
           </yd-flexbox-item>
 
         </yd-flexbox>
       </div>
 
-      <div class="item">
-        <yd-flexbox style="align-items:flex-start">
-          <div class="logo">
-            <div class="logo-box">
-              <img src="../assets/logo.png" alt="">
-            </div>
-          </div>
-          <yd-flexbox-item>
-            <div class="message">
-              <div class="msg-tit">
-                2018 疯狂年货节 一大波年货正在路上...
-              </div>
-              <div class="msg-body">
-                我的小鱼你醒了，还认识早晨吗？昨夜你曾经说，愿夜幕永不开启，你的香腮边轻轻滑落的，是你的泪，还是我的泪？初吻吻别的那个季节，不是已经哭过了吗......
-              </div>
-              <p class="msg-time">2018-01-12 19:56</p>
-            </div>
-          </yd-flexbox-item>
-
-        </yd-flexbox>
-      </div>
     </div>
 
 
@@ -60,7 +38,21 @@
 </template>
 
 <script>
+import config from '@/config.js';
 export default {
+  data () {
+    return {
+      data:{}
+    }
+  },
+  created(){
+    let url = `${config.host}index.php?m=Mobile&c=Index&a=loadMessages`;
+        this.$http.get(url).then((res)=>{
+          let data = res.body;
+          // console.log(data);
+          this.data = data;
+        });
+  },
   methods: {
     handleBack() {
       this.$router.go(-1);

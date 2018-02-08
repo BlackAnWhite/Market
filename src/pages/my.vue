@@ -28,16 +28,17 @@
       <div class="money">
         <yd-flexbox>
           <yd-flexbox-item>
-            <router-link to="/myPoint">
+            <!-- 后台说没有明细，如果需要就把注释打开 -->
+            <!-- <router-link to="/myPoint">  -->
               <p>{{data.userMoney}}</p>
               <p><span>积分</span></p>
-            </router-link>
+            <!-- </router-link> -->
           </yd-flexbox-item>
           <yd-flexbox-item>
-            <router-link to="/myMoney">
+            <!-- <router-link to="/myMoney"> -->
               <p>{{data.userScore}}</p>
               <p><span>银子(两)</span></p>
-            </router-link>
+            <!-- </router-link> -->
           </yd-flexbox-item>
         </yd-flexbox>
       </div>

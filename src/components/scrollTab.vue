@@ -2,7 +2,7 @@
 <yd-scrolltab>
   <yd-scrolltab-panel :label="item.catName" v-for="item,key in classData" :key="key">
     <div class="subClass">
-      <router-link :to="{ name: 'search', params: {keyWord:sub.catName,key:sub.catId,} }" v-for="(sub, key) in item.childs" :key="key">
+      <router-link :to="{ name: 'search', query: {keyWord:sub.catName,key:sub.catId} }" v-for="(sub, key) in item.childs" :key="key">
         <span>{{ sub.catName }}</span>
       </router-link>
     </div>

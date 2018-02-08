@@ -64,7 +64,7 @@ export default new Router({
       component: my
     },
     {
-      path: '/search/:keyWord/goodsCatId2/:key',
+      path: '/search',
       name: 'search',
       component: search
     },

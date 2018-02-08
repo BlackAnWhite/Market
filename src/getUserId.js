@@ -1,3 +1,5 @@
+//暂时没用
+
 <script>
   function getUserId(){
     let userId = 40;

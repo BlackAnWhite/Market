@@ -11,20 +11,20 @@
 
   <div class="cen">
     <yd-tab>
-      <yd-tab-panel class="item" label="一级会员(99)">
-        <div class="sub">天王盖地虎<span>活跃度: 9999</span></div>
-        <div class="sub">天王盖地虎<span>活跃度: 9999</span></div>
-        <div class="sub">天王盖地虎<span>活跃度: 9999</span></div>
+      <yd-tab-panel class="item" :label="`一级会员(${data.Count[0]})`">
+        <div class="sub" v-for="item,key in data.Fchilds" :key="key">
+          {{item.loginName}}<span>活跃度: {{item.userTotalScore}}</span>
+        </div>
       </yd-tab-panel>
-      <yd-tab-panel class="item" label="二级会员(999)">
-        <div class="sub">天王盖地虎<span>活跃度: 9999</span></div>
-        <div class="sub">天王盖地虎<span>活跃度: 9999</span></div>
-        <div class="sub">天王盖地虎<span>活跃度: 9999</span></div>
+      <yd-tab-panel class="item" :label="`二级会员(${data.Count[1]})`">
+        <div class="sub" v-for="item,key in data.Schilds" :key="key">
+          {{item.loginName}}<span>活跃度: {{item.userTotalScore}}</span>
+        </div>
       </yd-tab-panel>
-      <yd-tab-panel class="item" label="三级会员(9999)">
-        <div class="sub">天王盖地虎<span>活跃度: 9999</span></div>
-        <div class="sub">天王盖地虎<span>活跃度: 9999</span></div>
-        <div class="sub">天王盖地虎<span>活跃度: 9999</span></div>
+      <yd-tab-panel class="item" :label="`三级会员(${data.Count[2]})`">
+        <div class="sub" v-for="item,key in data.Tchilds" :key="key">
+          {{item.loginName}}<span>活跃度: {{item.userTotalScore}}</span>
+        </div>
       </yd-tab-panel>
 
     </yd-tab>
@@ -35,7 +35,21 @@
 </template>
 
 <script>
+import config from '@/config.js';
 export default {
+  data () {
+    return {
+      data : {}
+    }
+  },
+  created () {
+    let userId = 72,
+        url = `${config.host}index.php?m=Mobile&c=Users&a=getSpreadUserList&userId=${userId}`;
+        this.$http.get(url).then((res)=>{
+          // console.log(res.body);
+        this.data = res.body;
+        })
+  },
   methods: {
     handleBack() {
       this.$router.go(-1);

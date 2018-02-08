@@ -10,8 +10,7 @@
     </div>
 
     <div class="cen">
-      <goodslist theme="1"></goodslist>
-
+      <goodslist :url="url" theme="1"></goodslist>
     </div>
 
 
@@ -19,7 +18,13 @@
 </template>
 
 <script>
+import config from "@/config.js";
 export default {
+  data () {
+    return {
+      url: `${config.host}index.php?m=Mobile&c=Convert&a=getConvertGoodsList&p=`
+    }
+  },
   methods: {
     handleBack() {
       this.$router.go(-1);

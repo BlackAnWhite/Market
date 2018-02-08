@@ -17,9 +17,12 @@ export default {
     }
   },
   created(){
-    this.value = this.$route.params.keyWord;
-    let goodsCatId2 = this.$route.params.key;
-    this.url = `${config.host}index.php?m=Mobile&c=Index&a=goodsHot&goodsCatId2=${goodsCatId2}&p=`;
+    if(this.$route.query.keyWord){
+      this.value = this.$route.query.keyWord;
+      let goodsCatId2 = this.$route.query.key;
+      this.url = `${config.host}index.php?m=Mobile&c=Index&a=goodsHot&goodsCatId2=${goodsCatId2}&p=`;
+    }
+
   },
   methods: {
     submitHandler(value) {

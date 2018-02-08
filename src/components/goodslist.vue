@@ -9,7 +9,7 @@
       <p class="goods-desc" slot="other">{{item.goodsSpec}}</p>
       <yd-list-other class="goods-price-box" slot="other">
         <div>
-          <span class="goods-price">&yen;{{item.goodsPrice}}</span>
+          <span class="goods-price">{{item.goodsPrice}} 两</span>
         </div>
         <div class="goods-sales">已售：{{item.saleCount}}</div>
       </yd-list-other>
@@ -71,6 +71,7 @@ export default {
   },
   methods: {
     loadList() {
+      // console.log(this.page);
       this.$http.get(`${this.url}${this.page}`).then(function(res) {
         const _data = res.body;
         // console.log(_data);

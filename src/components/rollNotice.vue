@@ -19,7 +19,6 @@ export default {
   data() {
     return {
       notices: [],
-      userId:40,
       host: config.host
     }
   },

@@ -11,97 +11,24 @@
   <div class="cen">
     <yd-checklist v-model="checklist" :label="false" color="#e8380d" ref="checklistDemo" :callback="change">
       <!-- 循环shop -->
-      <div class="shop">
-        <div class="shop-tit">
-          华为官方旗舰店 选中值：{{checklist}}
-        </div>
-        <yd-checklist-item val="1">
+      <div class="shop" >
+        <!-- <div class="shop-tit">
+          {{data.shopName}}
+        </div> -->
+        <yd-checklist-item :val="item.favoriteId" v-for="item,key in data" :key="key">
           <yd-flexbox style="padding: 10px 0;">
-            <img src="../assets/img-11.jpg" class="img">
+            <img :src="item.goodsThums" class="img">
             <yd-flexbox-item align="top" class="goods-right">
-              <p class="goods-tit">Green Orange/青橙 VOGA 55909 激光投影手机全网通4G</p>
+              <p class="goods-tit">{{item.goodsName}}</p>
               <div class="goods-type">
-                <span>草木绿</span> <span>64g</span> <span>官方标配</span>
+                <span>{{item.goodsSpec}}</span>
               </div>
-              <p style="color:#e8380d;"><span>￥20</span></p>
-            </yd-flexbox-item>
-          </yd-flexbox>
-        </yd-checklist-item>
-        <yd-checklist-item val="2">
-          <yd-flexbox style="padding: 10px 0;">
-            <img src="../assets/img-15.jpg" class="img">
-            <yd-flexbox-item align="top" class="goods-right">
-              <p class="goods-tit">Green Orange/青橙 VOGA 55909 激光投影手机全网通4G</p>
-              <div class="goods-type">
-                <span>草木绿</span> <span>64g</span> <span>官方标配</span>
-              </div>
-              <p style="color:#e8380d;"><span>￥20</span></p>
+              <p style="color:#e8380d;"><span>￥{{item.goodsPrice}}</span></p>
             </yd-flexbox-item>
           </yd-flexbox>
         </yd-checklist-item>
       </div>
-
-      <!-- 循环shop -->
-      <div class="shop">
-        <div class="shop-tit">
-          华为官方旗舰店 选中值：{{checklist}}
-        </div>
-        <yd-checklist-item val="3">
-          <yd-flexbox style="padding: 10px 0;">
-            <img src="../assets/img-01.jpg" class="img">
-            <yd-flexbox-item align="top" class="goods-right">
-              <p class="goods-tit">Green Orange/青橙 VOGA 55909 激光投影手机全网通4G</p>
-              <div class="goods-type">
-                <span>草木绿</span> <span>64g</span> <span>官方标配</span>
-              </div>
-              <p style="color:#e8380d;"><span>￥20</span></p>
-            </yd-flexbox-item>
-          </yd-flexbox>
-        </yd-checklist-item>
-        <yd-checklist-item val="4">
-          <yd-flexbox style="padding: 10px 0;">
-            <img src="../assets/img-17.jpg" class="img">
-            <yd-flexbox-item align="top" class="goods-right">
-              <p class="goods-tit">Green Orange/青橙 VOGA 55909 激光投影手机全网通4G</p>
-              <div class="goods-type">
-                <span>草木绿</span> <span>64g</span> <span>官方标配</span>
-              </div>
-              <p style="color:#e8380d;"><span>￥20</span></p>
-            </yd-flexbox-item>
-          </yd-flexbox>
-        </yd-checklist-item>
-      </div>
-
-      <!-- 循环shop -->
-      <div class="shop">
-        <div class="shop-tit">
-          华为官方旗舰店 选中值：{{checklist}}
-        </div>
-        <yd-checklist-item val="5">
-          <yd-flexbox style="padding: 10px 0;">
-            <img src="../assets/img-21.jpg" class="img">
-            <yd-flexbox-item align="top" class="goods-right">
-              <p class="goods-tit">Green Orange/青橙 VOGA 55909 激光投影手机全网通4G</p>
-              <div class="goods-type">
-                <span>草木绿</span> <span>64g</span> <span>官方标配</span>
-              </div>
-              <p style="color:#e8380d;"><span>￥20</span></p>
-            </yd-flexbox-item>
-          </yd-flexbox>
-        </yd-checklist-item>
-        <yd-checklist-item val="6">
-          <yd-flexbox style="padding: 10px 0;">
-            <img src="../assets/img-19.jpg" class="img">
-            <yd-flexbox-item align="top" class="goods-right">
-              <p class="goods-tit">Green Orange/青橙 VOGA 55909 激光投影手机全网通4G</p>
-              <div class="goods-type">
-                <span>草木绿</span> <span>64g</span> <span>官方标配</span>
-              </div>
-              <p style="color:#e8380d;"><span>￥20</span></p>
-            </yd-flexbox-item>
-          </yd-flexbox>
-        </yd-checklist-item>
-      </div>
+      <!-- shop end -->
 
     </yd-checklist>
 
@@ -113,22 +40,33 @@
         <yd-checkbox v-model="isCheckAll" shape="circle" color="#e8380d" :change="checkAll">全选</yd-checkbox>
       </div>
       <yd-flexbox-item class="sum">已选：<i>{{checklist.length}}</i></yd-flexbox-item>
-      <div class="pay-btn">删 除</div>
+      <div class="pay-btn" @click="deleteBtn">删 除</div>
     </yd-flexbox>
   </div>
-
-
 
 </div>
 </template>
 
 <script type="text/babel">
+import config from '@/config.js';
 export default {
   data() {
     return {
       checklist: [],
-      isCheckAll: false
+      isCheckAll: false,
+      data:[]
     }
+  },
+  created(){
+    let userId = 40,
+        url = `${config.host}index.php?m=Mobile&c=Goods&a=queryGoodsByPage&userId=${userId}`;
+        this.$http.get(url).then((res)=>{
+          let data = res.body;
+          for(let i = 0 ; i < data.length; i++ ){
+            data[i].goodsThums = config.host + data[i].goodsThums;
+          };
+          this.data = data;
+        })
   },
   methods: {
     handleBack() {
@@ -141,6 +79,40 @@ export default {
     checkAll() {
       this.isCheckAll = !this.isCheckAll;
       this.$refs.checklistDemo.$emit('ydui.checklist.checkall', this.isCheckAll);
+    },
+    deleteBtn(){
+      let userId = 40,
+          url = `${config.host}index.php?m=Mobile&c=Goods&a=cancelFavorite`,
+          data = {
+            userId : userId,
+            favoriteInfo : []
+          };
+          for(let j = 0 ; j < this.checklist.length ; j++){
+            data.favoriteInfo.push({favoriteId:this.checklist[j]});
+          };
+          if(this.checklist.length == 0){
+            this.$dialog.toast({
+              mes:'请选择至少一个商品',
+              timeout: 1500
+            });
+          } else {
+            console.log(data);
+            this.$http.post(url,data,{emulateJSON: true}).then((res)=>{
+              console.log(res.body);
+              if(res.body.status == 1){
+                this.$dialog.toast({
+                  mes:'删除成功！',
+                  timeout: 1500
+                });
+                window.location.reload();
+              } else {
+                this.$dialog.toast({
+                  mes:'网络异常，请重试！',
+                  timeout: 1500
+                });
+              }
+            })
+          }
     }
   }
 }
