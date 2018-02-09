@@ -27,7 +27,7 @@
       </div>
       <div class="goods-desc"> {{data.goodsSpec}}
       </div>
-      <div class="goods-price">￥{{data.shopPrice}} <span class="goods-sales">评分: {{data.goodsScore}} &nbsp; 已售: {{data.saleCount}}</span> <span class="postage">快递：￥{{data.deliveryMoney}}</span>
+      <div class="goods-price">{{data.shopPrice}} 两<span class="goods-sales">评分: {{data.goodsScore}} &nbsp; 已售: {{data.saleCount}}</span> <span class="postage">快递：{{data.deliveryMoney}} 两</span>
       </div>
       <p class="add" v-if="data.FreeMoney">本商品满{{data.FreeMoney}}元即享包邮</p>
     </div>
@@ -67,7 +67,7 @@
     <yd-popup v-model="show" position="bottom" height="60%">
       <div class="choose-top" slot="top">
         <p class="choose-tit">{{data.goodsName}}</p>
-        <p class="choosed">已选：“<span>{{totalAttr}} ， {{spinner}}{{data.goodsUnit}} ， <i>￥{{totalPrice}}</i></span>”</p>
+        <p class="choosed">已选：“<span>{{totalAttr}} ， {{spinner}}{{data.goodsUnit}} ， <i>{{totalPrice}} 两</i></span>”</p>
       </div>
       <div class="choose-cen">
         <div class="choose-type">

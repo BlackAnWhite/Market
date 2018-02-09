@@ -16,7 +16,7 @@
             <yd-rate slot="left" v-model="rate" size=".4rem" :show-text="showText"></yd-rate>
         </yd-cell-item>
         <yd-cell-item>
-          <yd-textarea slot="right" placeholder="请写下您的评价吧" maxlength="200"></yd-textarea>
+          <yd-textarea slot="right" placeholder="请写下您的评价吧" maxlength="200" v-model="content"></yd-textarea>
         </yd-cell-item>
 
     </yd-cell-group>
@@ -30,10 +30,12 @@
 </template>
 
 <script>
+import config from '@/config.js';
 export default {
   data(){
     return {
       rate:3,
+      content:'',
       showText:['很差','还行','一般','挺好','非常好']
     }
   },
@@ -43,10 +45,32 @@ export default {
       // console.log(this.$router);
     },
     clickHander(){
-      this.$dialog.toast({
-        mes: '已提交',
-        timeout: 1500
+      let userId = 40,
+          orderId = this.$route.query.orderId,
+          url = `${config.host}index.php?m=Mobile&c=Orders&a=addGoodsAppraises`,
+          data = {
+            userId: userId,
+            orderId: orderId,
+            goodsScore: this.rate,
+            content: this.content
+          };
+          console.log(data);
+      this.$http.post(url,data,{emulateJSON: true}).then((res)=>{
+        console.log(res.body);
+        if(res.body.status == 1){
+          this.$dialog.toast({
+            mes: '已提交评论',
+            timeout: 1500
+          });
+          this.$router.go(-1);
+        } else {
+          this.$dialog.toast({
+            mes: '网络异常，请重试！',
+            timeout: 1500
+          });
+        }
       });
+
     }
   }
 }

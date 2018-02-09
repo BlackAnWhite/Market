@@ -2,7 +2,7 @@
   <div class="container hasnav">
 
     <div class="top">
-      <yd-navbar title="电子币明细" bgcolor="#d94927" color="#fff">
+      <yd-navbar title="银子明细" bgcolor="#d94927" color="#fff">
         <section slot="left" @click="handleBack">
           <yd-navbar-back-icon color="#fff"></yd-navbar-back-icon>
         </section>

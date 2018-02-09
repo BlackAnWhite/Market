@@ -22,7 +22,7 @@
                 <div class="goods-type">
                   <span>{{sub.attrVal}}</span>
                 </div>
-                <p style="color:#e8380d;"><span>￥{{sub.goodsPrice}}</span>
+                <p style="color:#e8380d;"><span>{{sub.goodsPrice}} 两</span>
                   <span class="goods-num">× {{sub.cnt}}</span>
                 </p>
               </yd-flexbox-item>
@@ -40,7 +40,7 @@
       <div class="del-btn" @click="delCart">
         <yd-icon size=".4rem" color="#b2b2b2" name="delete"></yd-icon>
       </div>
-      <yd-flexbox-item class="sum">总计：<span>￥{{sumPrice}}</span></yd-flexbox-item>
+      <yd-flexbox-item class="sum">总计：<span>{{sumPrice}} 两</span></yd-flexbox-item>
       <div class="pay-btn">结 算</div>
     </yd-flexbox>
   </div>

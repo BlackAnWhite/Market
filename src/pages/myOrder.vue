@@ -154,7 +154,7 @@
               <div class="list-item-bot">
                 总计：<i>{{item.totalMoney}} 两</i>
                 <span class="yellow" v-if=" item.isAppraises != 1 ? true : false ">
-                  <router-link :to="{ name: 'comment', query: {data:params} }">
+                  <router-link :to="{ name: 'comment', query: {orderId:item.orderId} }">
                     立即评价
                   </router-link>
                 </span>
