@@ -28,6 +28,7 @@ import contact from '@/pages/contact'
 import myPoint from '@/pages/myPoint'
 import myMoney from '@/pages/myMoney'
 import comment from '@/pages/comment'
+import makeOrder from '@/pages/makeOrder'
 
 Vue.use(Router)
 
@@ -142,6 +143,11 @@ export default new Router({
       path: '/comment',
       name: 'comment',
       component: comment,
+    },
+    {
+      path: '/makeOrder',
+      name: 'makeOrder',
+      component: makeOrder,
     }
   ]
 })

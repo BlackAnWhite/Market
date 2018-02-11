@@ -41,7 +41,7 @@
         <yd-icon size=".4rem" color="#b2b2b2" name="delete"></yd-icon>
       </div>
       <yd-flexbox-item class="sum">总计：<span>{{sumPrice}} 两</span></yd-flexbox-item>
-      <div class="pay-btn">结 算</div>
+      <div class="pay-btn" @click="buyNow">结 算</div>
     </yd-flexbox>
   </div>
 
@@ -56,8 +56,8 @@ import config from "@/config.js";
 export default {
   data() {
     return {
+      orderData: {},
       sumPrice: 0,
-      spinner: 1,
       checklist: [],
       data: []
     }
@@ -97,25 +97,25 @@ export default {
   methods: {
     delCart() {
       let checked = this.checklist,
-          url = `${config.host}index.php?m=Mobile&c=Cart&a=delCartGoods`,
-          userId = 40;
+        url = `${config.host}index.php?m=Mobile&c=Cart&a=delCartGoods`,
+        userId = 40;
 
       let i,
-          j,
-          k,
-          data = {
-                    userId:userId,
-                    deleteInfo:[]
-                  },
-          lists = this.data;
-          // newList = this.data;
-      for(i=0;i<checked.length;i++){
-        for(j=0;j<lists.length;j++){
-          for(k=0;k<lists[j].shopgoods.length;k++){
-            if(parseInt(checked[i]) == parseInt(lists[j].shopgoods[k].cartId)){
+        j,
+        k,
+        data = {
+          userId: userId,
+          deleteInfo: []
+        },
+        lists = this.data;
+      // newList = this.data;
+      for (i = 0; i < checked.length; i++) {
+        for (j = 0; j < lists.length; j++) {
+          for (k = 0; k < lists[j].shopgoods.length; k++) {
+            if (parseInt(checked[i]) == parseInt(lists[j].shopgoods[k].cartId)) {
               data.deleteInfo.push({
-                goodsId:lists[j].shopgoods[k].goodsId,
-                goodsAttrId:lists[j].shopgoods[k].goodsAttrId
+                goodsId: lists[j].shopgoods[k].goodsId,
+                goodsAttrId: lists[j].shopgoods[k].goodsAttrId
               });
               // mewList[j].shopgoods.splice(k,1);
             }
@@ -125,18 +125,18 @@ export default {
 
       // console.log(data);
 
-      this.$http.post(url,data, {
+      this.$http.post(url, data, {
         emulateJSON: true
       }).then((res) => {
         console.log(res.body);
-        if(res.body.status==1){
+        if (res.body.status == 1) {
           this.$dialog.toast({
             mes: '删除成功!',
             timeout: 1500
           });
           // this.data = mewList;
           window.location.reload();
-        } else{
+        } else {
           this.$dialog.toast({
             mes: '删除失败!',
             timeout: 1500
@@ -145,6 +145,76 @@ export default {
       }, (err) => {
         // console.log(err);
       })
+    },
+    buyNow() {
+      let userId = 40,
+        url = `${config.host}index.php?m=Mobile&c=Orders&a=checkOrderInfo`;
+        this.orderData.userId = userId;
+        this.orderData.goodsData = [];
+      if (this.checklist.length == 0) {
+        this.$dialog.notify({
+          mes: '请选择至少一件商品！',
+          timeout: 3000
+        });
+      } else {
+        for (let i = 0; i < this.checklist.length; i++) {
+          for (let j = 0; j < this.data.length; j++) {
+            for (let k = 0; k < this.data[j].shopgoods.length; k++) {
+              if (this.checklist[i] == this.data[j].shopgoods[k].cartId) {
+                this.orderData.goodsData.push({
+                  //后台需要的数据
+                  goodsId: this.data[j].shopgoods[k].goodsId,  //商品ID
+                  goodsAttrId: this.data[j].shopgoods[k].goodsAttrId,  //属性ID
+                  cnt: this.data[j].shopgoods[k].cnt,  //数量
+                  //下个页面需要的数据
+                  goodsName: this.data[j].shopgoods[k].goodsName,  //商品名字
+                  shopName: this.data[j].shopName,   //店铺名称
+                  goodsThums: this.data[j].shopgoods[k].goodsThums,  //图片
+                  goodsPrice: this.data[j].shopgoods[k].goodsPrice,  //单价
+                  goodsAttr: this.data[j].shopgoods[k].goodsAttr,  //属性名字
+                });
+              }
+            }
+          }
+        }; //for 结束
+
+        // console.log(this.orderData);
+
+        let url = `${config.host}index.php?m=Mobile&c=Orders&a=checkOrderInfo`;
+        this.$http.post(url, this.orderData, {
+          emulateJSON: true
+        }).then((res) => {
+          console.log(res);
+          let data = res.body;
+          this.orderData.defaultAddress = data.defaultAddress;    //默认地址
+          this.orderData.addressId = data.defaultAddress.addressId;  //默认地址ID
+          this.orderData.orderIds = data.orderIds;  //订单ID
+          this.orderData.totalMoney = data.totalMoney;  //商品价格
+          this.orderData.deliverMoney = data.deliverMoney;   //邮费
+          this.orderData.realTotalMoney = data.realTotalMoney;   //总价
+
+          this.$dialog.loading.open('正在生成订单...');
+          setTimeout(() => {
+            this.$dialog.loading.close();
+          }, 500);
+
+          if(data.status == 1){
+            // console.log(this.orderData);
+            this.$router.push({ name: 'makeOrder', query: { data:this.orderData }});
+
+          } else if(data.status == -1) {
+            this.$dialog.toast({
+              mes: res.data.msg,
+              timeout: 1500
+            });
+          } else (
+            this.$dialog.toast({
+              mes:'网络异常，请重试！',
+              timeout: 1500
+            })
+          )
+        });
+      };
     }
   }
 }

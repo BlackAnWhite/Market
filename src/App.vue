@@ -37,7 +37,7 @@ vue.component("special", special);
 import goodslist from "@/components/goodslist";
 vue.component("goodslist", goodslist);
 
-
+//引用swiper组件
 import 'swiper/dist/css/swiper.css';
 import { swiper, swiperSlide } from 'vue-awesome-swiper';
 vue.component('swiper',swiper);
@@ -75,5 +75,9 @@ export default {
 }
 .yd-navbar:after{
   border-bottom: 0 !important;
+}
+.goods-info img{
+  width: 100%;
+  display: block;
 }
 </style>

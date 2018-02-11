@@ -36,7 +36,6 @@
         <yd-tab-panel label="详情" active tabkey="1">
           <div class="goods-info" v-html="data.goodsDesc">
             <!-- 这里面放详情 -->
-            <!-- {{data.goodsDesc}} -->
           </div>
         </yd-tab-panel>
         <yd-tab-panel :label="'评论('+data.couponsCount+')'" tabkey="2">
@@ -141,6 +140,7 @@ import config from '@/config.js';
 export default {
   data() {
     return {
+      orderData: {}, //确认订单的数据
       rate: 0, //星评 整数
       show: false, //显示加入购物车
       radio: 1, //选了那个配置
@@ -148,8 +148,9 @@ export default {
       data: {},
       url: ``,
       totalPrice: '', //总价
-      attrStock: 0, //规格价格
-      totalAttr: '' //规格
+      attrStock: 0, //库存
+      totalAttr: '', //规格
+      totalAttrPrice: 0 //规格
     }
   },
   created() {
@@ -166,7 +167,9 @@ export default {
       data.goodsImg = config.host + data.goodsImg;
       let firstImg = data.goodsImg;
       let imgBox = data.goodsAlbum;
-      imgBox.unshift({"goodsImg":firstImg});
+      imgBox.unshift({
+        "goodsImg": firstImg
+      });
       // console.log(data);
       for (let j = 0; j < data.goodsAttrs.length; j++) {
         if (data.goodsAttrs[j].isRecomm == 1) {
@@ -186,6 +189,7 @@ export default {
 
       this.attrStock = this.data.goodsAttrs[now].attrStock;
       this.totalAttr = this.data.goodsAttrs[now].attrVal;
+      this.totalAttrPrice = this.data.goodsAttrs[now].attrPrice;
       this.totalPrice = parseFloat(this.data.goodsAttrs[now].attrPrice) * this.spinner;
       this.totalPrice = this.totalPrice.toFixed(2);
       // console.log(now);
@@ -216,12 +220,12 @@ export default {
       } else {
         this.$http.get(url).then((res) => {
           console.log(res);
-          if(res.body.status == 1){
+          if (res.body.status == 1) {
             this.$dialog.toast({
               mes: '收藏成功!',
               timeout: 1500
             });
-          } else{
+          } else {
             this.$dialog.toast({
               mes: '网络异常，请重试!',
               timeout: 1500
@@ -237,6 +241,8 @@ export default {
         goodsCnt = this.spinner,
         goodsAttrId = parseInt(this.data.goodsAttrs[this.radio].id);
       // console.log(userId, goodsId, goodsCnt, goodsAttrId);
+
+      //加入购物车
       let url = `${config.host}index.php?m=Mobile&c=Cart&a=addToCartAjax`;
       this.$http.post(url, {
         userId: userId,
@@ -258,14 +264,73 @@ export default {
       })
     },
     buyNow() {
-      alert('购买成功');
+      let userId = 40,
+        goodsId = parseInt(this.data.goodsId),
+        goodsCnt = this.spinner,
+        goodsAttrId = parseInt(this.data.goodsAttrs[this.radio].id);
+      // console.log(userId, goodsId, goodsCnt, goodsAttrId);
+
+      //把数据放进orderData中
+      this.orderData.userId = userId;
+      this.orderData.goodsData = [];
+      this.orderData.goodsData.push({
+        goodsId: goodsId,  //商品ID
+        goodsAttrId: goodsAttrId,  //属性ID
+        cnt: goodsCnt,  //数量
+
+        goodsName : this.data.goodsName,  //商品名字
+        goodsPrice : this.totalAttrPrice,  //已选规格的单价
+        goodsThums : config.host + this.data.goodsThums,  //图片
+        goodsAttr : this.totalAttr,  //已选规格
+        shopName :this.data.shopName  //店铺名字
+
+      });
+
+      console.log(this.orderData);
+      let url = `${config.host}index.php?m=Mobile&c=Orders&a=checkOrderInfo`;
+      this.$http.post(url, this.orderData, {
+        emulateJSON: true
+      }).then((res) => {
+        // console.log(res);
+        let data = res.body;
+
+        this.orderData.defaultAddress = data.defaultAddress;    //默认地址
+        this.orderData.addressId = data.defaultAddress.addressId;  //默认地址ID
+        this.orderData.orderIds = data.orderIds;  //订单ID
+        this.orderData.totalMoney = data.totalMoney;  //商品价格
+        this.orderData.deliverMoney = data.deliverMoney;   //邮费
+        this.orderData.realTotalMoney = data.realTotalMoney;   //总价
+
+
+
+
+        this.$dialog.loading.open('正在生成订单...');
+        setTimeout(() => {
+          this.$dialog.loading.close();
+        }, 500);
+
+        if(data.status == 1){
+          // console.log(this.orderData);
+          this.$router.push({ name: 'makeOrder', query: { data:this.orderData }});
+
+        } else if(data.status == -1) {
+          this.$dialog.toast({
+            mes: res.data.msg,
+            timeout: 1500
+          });
+        } else (
+          this.$dialog.toast({
+            mes:'网络异常，请重试！',
+            timeout: 1500
+          })
+        )
+      });
     }
   }
 }
 </script>
 
 <style scoped>
-
 .slidebox {
   width: 100%;
   height: 7.5rem;
@@ -359,7 +424,7 @@ export default {
 }
 
 .goods-info p {
-  width: 100%;
+  width: 100% !important;
   padding: 0 .2rem;
 }
 
@@ -368,7 +433,7 @@ export default {
 }
 
 .goods-info img {
-  width: 100%;
+  width: 100% !important;
   display: block;
 }
 
